@@ -38,10 +38,10 @@
         <!-- Main Content -->
             <div class="main-content">
                 <section class="section">
-                    <div class="section-header h-25">
+                    <div class="section-header" style="margin-left: -2px;">
                         <h1>@yield('judul')</h1>
-                        <div class="section-header-breadcrumb mr-5" aria-label="breadcrumb">
-                            @yield('breadcrump')
+                        <div class="section-header-breadcrumb" aria-label="breadcrumb">
+                            @yield('breadcrumb')
                         </div>
                     </div>
                     <div class="section-body">
