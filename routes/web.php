@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\userController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,11 @@ Route::get('/', function () {
     return view('user.index');
 });
 
+Route::get('/user', function ( ) {
+    
+});
+
+Route::get('/user', [userController::class, 'index'])->name('user.index');
 
 // Route::group(['prefix' => 'admin'], function () {
 //     Voyager::routes();
