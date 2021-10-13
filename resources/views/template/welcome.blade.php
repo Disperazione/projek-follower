@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<<<<<<< HEAD:resources/views/template/welcome.blade.php
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -46,8 +45,6 @@
                         </g>
                     </svg>
                 </div>
-=======
->>>>>>> d5b7f420992cf6a2515da9f06fffecee0677581e:resources/views/welcome.blade.php
 
 <head>
     <meta charset="utf-8">
