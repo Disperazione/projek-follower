@@ -4,9 +4,10 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f66ae7c818728dfbb5c57888f0048a98",
+    "content-hash": "e7135ce4aa5b0fb82d8a4f8347853b3e",
     "packages": [
         {
+<<<<<<< Updated upstream
             "name": "arrilot/laravel-widgets",
             "version": "3.13.1",
             "source": {
@@ -69,6 +70,8 @@
             "time": "2020-09-20T19:56:38+00:00"
         },
         {
+=======
+>>>>>>> Stashed changes
             "name": "asm89/stack-cors",
             "version": "v2.0.3",
             "source": {
@@ -248,6 +251,7 @@
             "time": "2021-08-13T13:06:58+00:00"
         },
         {
+<<<<<<< Updated upstream
             "name": "doctrine/cache",
             "version": "2.1.1",
             "source": {
@@ -577,6 +581,8 @@
             "time": "2020-05-29T18:28:51+00:00"
         },
         {
+=======
+>>>>>>> Stashed changes
             "name": "doctrine/inflector",
             "version": "2.0.3",
             "source": {
@@ -1285,6 +1291,7 @@
             "time": "2021-10-06T17:43:30+00:00"
         },
         {
+<<<<<<< Updated upstream
             "name": "intervention/image",
             "version": "2.7.0",
             "source": {
@@ -1417,6 +1424,8 @@
             "time": "2019-09-05T13:15:40+00:00"
         },
         {
+=======
+>>>>>>> Stashed changes
             "name": "laravel/framework",
             "version": "v8.63.0",
             "source": {
@@ -5500,6 +5509,7 @@
             "time": "2021-09-24T15:59:58+00:00"
         },
         {
+<<<<<<< Updated upstream
             "name": "tcg/voyager",
             "version": "v1.5.0",
             "source": {
@@ -5591,6 +5601,8 @@
             "time": "2021-08-31T08:39:29+00:00"
         },
         {
+=======
+>>>>>>> Stashed changes
             "name": "tijsverkoyen/css-to-inline-styles",
             "version": "2.2.3",
             "source": {
