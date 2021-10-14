@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
 use Illuminate\Support\Facades\Auth;
@@ -15,18 +16,19 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () { return view('user.index'); });
+Route::get('/', function () {
+    return view('user.index');
+});
 
-Route::get('/dashboard', function () { return view('admin.dashboard'); });
-Route::get('/order', function () { return view('admin.order.index'); });
+Route::prefix('admin')->group(function () {
+    Route::get('/', [AdminController::class, 'login'])->name('admin.login')->middleware('guest');
+    Route::middleware('auth')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');
+        Route::get('/order', [AdminController::class, 'order'])->name('admin.order');
 
-Route::get('/layanan', function () { return view('admin.layanan.index'); });
-Route::get('/addlayanan', function () { return view('admin.layanan.addlayanan'); });
-
-
-<<<<<<< Updated upstream
-Route::get('/user', function ( ) {
-
+        Route::get('/layanan', [AdminController::class, 'layanan'])->name('admin.layanan');
+        Route::get('/addlayanan', [AdminController::class, 'addLayanan'])->name('admin.addLayanan');
+    });
 });
 
 Route::get('/user', [userController::class, 'index'])->name('user.index');
@@ -34,12 +36,8 @@ Route::get('/user', [userController::class, 'index'])->name('user.index');
 // Route::group(['prefix' => 'admin'], function () {
 //     Voyager::routes();
 // });
-=======
 
 Auth::routes();
-Route::get('/admin', function () {
-    return view('auth.login');
-});
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/home/store', [App\Http\Controllers\HomeController::class, 'store'])->name('store');
@@ -50,4 +48,3 @@ Route::get('/user', function () {
 });
 
 Route::get('/user', [userController::class, 'index'])->name('user.index');
->>>>>>> Stashed changes
