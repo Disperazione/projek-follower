@@ -27,18 +27,37 @@ class HomeController extends Controller
     public function index()
     {
         $menu = Menu::whereIn('id', [1, 2, 3, 4, 5, 6, 7])->get();
+        $satdim = Menu::whereIn('id', [1, 2, 3, 4, 5, 6, 7, 8])->get();
         $nasi = Menu::where('menu', 'Nasi')->get();
-        return view('home', compact('menu', 'nasi'));
+        return view('home', compact('menu', 'nasi', 'satdim'));
     }
     public function store(Request $request)
     {
+        $request->validate([
+            'nama' => 'required',
+            'tlp' => 'required',
+            'alamat' => 'required',
+            'email' => 'required',
+            'menu' => 'required',
+            'qty' => 'required',
+            'harga' => 'required',
+            'total_harga' => 'required',
+            'bukti_pembayaran' => 'required'
+        ]);
+
         $menus = '';
+        $bktpb = $request->bukti;
+        $namafile = time() . rand(100, 999) . "." . $bktpb->getClientOriginalExtension();
+        // dd($request->varian);
         if ($request->plus == 'Nasi') {
             $menus .= $request->menu . ' + ' . $request->plus;
         } else if ($request->plus == 'Tidak Pakai') {
-            $menus .= $request->menu;
+            if ($request->varian != 'Pilih satu') {
+                $menus .= $request->menu . ' (' . $request->varian . ')';
+            } else {
+                $menus .= $request->menu;
+            }
         }
-        // dd($menus);
         // dd($menus);
         OrderMakanan::create([
             'nama' => $request->nama,
@@ -49,8 +68,10 @@ class HomeController extends Controller
             'qty' => $request->qty,
             'harga' => $request->harga,
             'total_harga' => $request->total,
-            'bukti_pembayaran' => 'haihsih'
+            'bukti_pembayaran' => $namafile
         ]);
+        $bktpb->move(public_path() . '/assets/img/bukti', $namafile);
+
         return redirect()->route('home');
     }
 
@@ -66,7 +87,7 @@ class HomeController extends Controller
             $menu = Menu::where('menu', $cid)->get();
             $html = ' ';
             foreach ($menu as $list) {
-                $html .=  '<span class="form-control">' . $list->harga . '</span>';
+                $html .=  '<span class="form-control">' . number_format($list->harga) . '</span>';
                 $html .=  '<input class="d-none" id="harga" name="harga" value="' . $list->harga . '"></input>';
             }
             return $html;
@@ -81,13 +102,13 @@ class HomeController extends Controller
             $menu = Menu::where('menu', $cid)->get();
             $html = ' ';
             foreach ($menu as $list) {
-                $html .=  '<span class="form-control">20000</span>';
+                $html .=  '<span class="form-control">' . number_format(20000) . '</span>';
                 $html .=  '<input class="d-none" id="harga" name="harga" value="20000"></input>';
             }
             return $html;
         } else {
             $html = ' ';
-            $html .=  '<span class="form-control">15000</span>';
+            $html .=  '<span class="form-control">' . number_format(15000) . '</span>';
             $html .=  '<input class="d-none" id="harga" name="harga" value="15000"></input>';
             // dd($html);
             return $html;

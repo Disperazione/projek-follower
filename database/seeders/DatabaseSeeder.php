@@ -53,6 +53,11 @@ class DatabaseSeeder extends Seeder
             'kategori' => 'Makanan'
         ]);
         Menu::create([
+            'menu' => 'Dimsum',
+            'harga' => '12000',
+            'kategori' => 'Makanan'
+        ]);
+        Menu::create([
             'menu' => 'Nasi',
             'harga' => '5000',
             'kategori' => 'Makanan'
