@@ -57,7 +57,7 @@
                         <a class="nav-link" href="#services">Layanan</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#features">Order</a>
+                        <a class="nav-link" href="#contact">Order</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/login">Login</a>
@@ -122,6 +122,7 @@
     </section><!-- SERVICES -->
 
     {{-- ORDER --}}
+    <section id="contact">
     <div class="row order">
         <div class="col-sm-8">
           <div class="card card-effect">
@@ -246,41 +247,13 @@
             </div>
           </div>
         </div>
+        <br><br><br>
     </div>
+</section>
     {{-- ORDER --}}
 
     <!-- CONTACT -->
-    <section id="contact">
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-md-8 mx-auto text-center">
-                    <h6 class="text-primary">ORDER</h6>
-                    <h1>Dapatkan Sekarang</h1>
-                </div>
-            </div>
-
-            <form action="" class="row g-3 justify-content-center">
-                <div class="col-md-5">
-                    <input type="text" class="form-control" placeholder="Full Name">
-                </div>
-                <div class="col-md-5">
-                    <input type="text" class="form-control" placeholder="Enter E-mail">
-                </div>
-                <div class="col-md-10">
-                    <input type="text" class="form-control" placeholder="Enter Subject">
-                </div>
-                <div class="col-md-10">
-                    <textarea name="" id="" cols="30" rows="5" class="form-control"
-                        placeholder="Enter Message"></textarea>
-                </div>
-                <div class="col-md-4 d-grid">
-                    <button class="btn btn-primary">Contact</button>
-                </div>
-            </form>
-
-        </div>
-    </section><!-- CONTACT -->
-
+   
     <footer>
         <div class="footer-top">
             <div class="container">
