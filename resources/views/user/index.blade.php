@@ -13,9 +13,27 @@
     <link rel="stylesheet" href="{{ asset ('assets/user/css/boxicons.min.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="stylesheet" href="{{ asset ('assets/user/css/style.css') }}">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
     <title>Yuk, Tambah Followers!</title>
+
+    <style>
+        .order{
+            width: 1300px;
+            margin: 0px auto;
+        }
+        .card{
+            border: none;
+        }
+        .alert-warning{
+            margin-top: -20px;
+            margin-bottom: 30px;
+        }
+        .info-text{
+            font-size: 13px;
+        }
+    </style>
 </head>
 
 <body>
@@ -40,6 +58,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#features">Order</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
                     </li>
                 </ul>
             </div>
@@ -99,6 +120,134 @@
             </div>
         </div>
     </section><!-- SERVICES -->
+
+    {{-- ORDER --}}
+    <div class="row order">
+        <div class="col-sm-8">
+          <div class="card card-effect">
+            <div class="card-header">
+                <i class="fas fa-shopping-cart mr-2"></i> Pesan Baru
+            </div>
+            <div class="card-body">
+                <div class="row justify-content-center">
+                    <div class="mt-4 pb-5">
+                        <form action="" method="post" enctype="">
+                            <div class="alert alert-warning col-12" role="alert">
+                                <i class="fas fa-exclamation-triangle mr-2"></i>
+                                Sebelum mengisi form pastikan Anda sudah membaca Informasi yang terletak di kanan form.
+                            </div>
+                            <div class="row justify-content-center mb-1">
+                                <label for="" class="label-form col-md-12 mb-3">
+                                    Kategori
+                                    <select name="" id="" class="form-control">
+                                        <option value="plh">--Pilih satu--</option>
+                                        <option value="plh">Twitter</option>
+                                        <option value="plh">Instagram</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="row justify-content-center mb-1">
+                                <label for="" class="label-form col-md-12 mb-3">
+                                    Layanan
+                                    <select name="" id="" class="form-control">
+                                        <option value="plh">--Pilih satu--</option>
+                                    </select>
+                                </label>
+                            </div>
+                            <div class="row justify-content-center mb-1">
+                                <label for="" class="label-form col-md-12 mb-3">
+                                    Deskripsi Layanan
+                                    <div id="">
+                                        <span class="form-control" id="">-</span>
+                                        <input type="number" class="d-none" id="" name="">
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="row justify-content-center">
+                                <label for="" class="label-form col-md-4 mb-3">
+                                    Minimal Pesan
+                                    <div id="">
+                                        <span class="form-control" id="">0</span>
+                                        <input type="number" class="d-none" id="" name="">
+                                    </div>
+                                </label>
+                                <label for="" class="label-form col-md-4 mb-3">
+                                    Maksimal Pesan
+                                    <div id="">
+                                        <span class="form-control" id="">0</span>
+                                        <input type="number" class="d-none" id="" name="">
+                                    </div>
+                                </label>
+                                <label for="" class="label-form col-md-4 mb-3">
+                                    Harga/1000
+                                    <div id="">
+                                        <span class="form-control" id="">0</span>
+                                        <input type="number" class="d-none" id="" name="">
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="row justify-content-center mb-3">
+                                <label for="" class="label-form col-md-12 mb-1">
+                                    Target
+                                    <textarea name="" id="" class="form-control" cols=" 30" rows="1"></textarea>
+                                </label>
+                            </div>
+                            <div class="row justify-content-center">
+                                <label for="nama" class="label-form col-md-6 mb-3">
+                                    Jumlah
+                                    <input type="number" name="qty" id="qty" class="form-control" value="0">
+                                </label>
+                                <label for="" class="label-form col-md-6 mb-3">
+                                    Total Harga
+                                    <span class="form-control" id="ttl">0</span>
+                                    <input type="number" class="d-none" id="" name="">
+                                </label>
+                            </div>
+                            <div class="row mt-3">
+                                <button type="submit" class="btn btn-danger col-md-2 mr-3">Reset</button>
+                                <button type="submit" class="btn btn-success col-md-2">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="card card-effect">
+              <div class="card-header">
+                <i class="fas fa-exclamation-circle mr-2"></i> Informasi
+              </div>
+            <div class="card-body info-text">
+                <ul>
+                    <li>Langkah-langkah membuat pesanan baru :</li>
+                    <ul type="circle">
+                        <li>Pilih salah satu Kategori.</li>
+                        <li>Pilih salah satu Layanan yang ingin dipesan.</li>
+                        <li>Masukkan Target pesanan sesuai ketentuan yang diberikan layanan tersebut.</li>
+                        <li>Masukkan Jumlah Pesanan yang Diinginkan.</li>
+                        <li>Klik Submit untuk membuat pesanan baru.</li>
+                    </ul>
+                    <br>
+                    <li>Ketentuan membuat pesanan baru :</li>
+                    <ul type="circle">
+                        <li>Pastikan Data yang diMasukkan Benar.</li>
+                        <li>Di Pastikan Akun Sewaktu Diproses Tidak di PRIVATE</li>
+                        <li>Jika Membeli Followers Instagram maka Target diisikan Dengan Username Instagram bukan link Instagram</li>
+                        <li>Jika Membeli Followers TIK TOK Maka Target diisikan Dengan Link/Url Akun TIK TOK bukan username akun TIK TOK</li>
+                        <li>Jika Membeli Subscribe YOUTUBE Maka Target diisikan Dengan Link/Url Akun YOUTUBE bukan nama akun YOUTUBE</li>
+                        <li>Jika Membeli Likes/Views INTAGRAM, TIK TOK, YOUTUBE. Maka Target diisikan Link/Url Postingan Tersebut</li>
+                        <li>Dilarang melakukan pemesanan ganda pada <u>data yang sama</u> jika status pemesanan sebelumnya masih Pending/Processing. Silakan tunggu hingga status pemesanan sebelumnya Error/Success, baru kemudian pesan kembali.</li>
+                        <li>Jika ingin membuat pesanan dengan Target yang sama dengan pesanan yang sudah pernah dipesan sebelumnya, mohon menunggu sampai pesanan sebelumnya selesai diproses</li>
+                        <li>Segala Kesalahan Yang Dilakukan Member itu Diluar Tanggung Jawab Kami.</li>
+                        <li>Jika terjadi kesalahan / mendapatkan pesan gagal yang kurang jelas, silahkan hubungi Admin untuk informasi lebih lanjut.</li>
+                    </ul>
+                </ul>
+            </div>
+          </div>
+        </div>
+    </div>
+    {{-- ORDER --}}
 
     <!-- CONTACT -->
     <section id="contact">
