@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class OrderLayanan extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'kategori',
+        'layanan',
+        'target',
+        'jumlah',
+        'total',
+        'status',
+    ];
 }

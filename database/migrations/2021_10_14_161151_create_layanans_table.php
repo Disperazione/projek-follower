@@ -20,7 +20,7 @@ class CreateLayanansTable extends Migration
             $table->longText('desklay');
             $table->integer('minimal');
             $table->integer('maks');
-            $table->integer('harga');
+            $table->string('harga');
             $table->integer('hargaperk');
             $table->timestamps();
         });

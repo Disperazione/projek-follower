@@ -23,6 +23,7 @@
                             <thead class="text-center">
                                 <tr>
                                     <th class="text-center">ID</th>
+                                    <th>Kategori</th>
                                     <th>Layanan</th>
                                     <th>Harga/1000</th>
                                     <th>Min.Pesan</th>
@@ -32,37 +33,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Facebook Followers S1</td>
-                                    <td>Rp 40.000</td>
-                                    <td>100</td>
-                                    <td>10.000</td>
-                                    <td>
-                                        <ul>
-                                            <li>Masukan target link akun facebook dari web browser</li>
-                                            <li>Jangan diprivate selagi proses</li>
-                                            <li>No refill</li>
-                                            <li>Proses 1 x 24 jam</li>
-                                        </ul>
-                                    </td>
-                                    <td><a href="#" class="btn btn-secondary">Detail</a></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Facebook Profile Follower [Non Drop]</td>
-                                    <td>Rp 77.000</td>
-                                    <td>50</td>
-                                    <td>500</td>
-                                    <td>
-                                        <ul>
-                                            <li>Masukan target link profile</li>
-                                            <li>Max 1 x 24 jam</li>
-                                            <li>Refill 30 hari</li>
-                                        </ul>
-                                    </td>
-                                    <td><a href="#" class="btn btn-secondary">Detail</a></td>
-                                </tr>
+                                @foreach ($data as $item)
+                                    <tr>
+                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->kategori }}</td>
+                                        <td>{{ $item->layanan }}</td>
+                                        <td>{{ number_format($item->hargaperk) }}</td>
+                                        <td>{{ number_format($item->minimal) }}</td>
+                                        <td>{{ number_format($item->maks) }}</td>
+                                        <td>
+                                            {!! $item->desklay !!}
+                                        </td>
+                                        <td><a href="#" class="btn btn-secondary">Detail</a></td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>

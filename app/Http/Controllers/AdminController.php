@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Layanan;
 use App\Models\Menu;
+use App\Models\OrderLayanan;
 use App\Models\OrderMakanan;
 use Illuminate\Http\Request;
 
@@ -16,7 +18,16 @@ class AdminController extends Controller
 
     public function index()
     {
-        return view('admin.dashboard');
+        $pesanan = [
+            OrderLayanan::where('status', 'pending')->count(),
+            OrderLayanan::where('status', 'proses')->count(),
+            OrderLayanan::where('status', 'selesai')->count(),
+            OrderLayanan::select('*')->count() + OrderMakanan::select('*')->count(),
+            OrderLayanan::select('*')->count(),
+            OrderMakanan::select('*')->count()
+        ];
+
+        return view('admin.dashboard', compact('pesanan'));
     }
 
     public function order()
@@ -114,7 +125,8 @@ class AdminController extends Controller
 
     public function layanan()
     {
-        return view('admin.layanan.index');
+        $data = Layanan::all();
+        return view('admin.layanan.index', compact('data'));
     }
 
     public function addLayanan()

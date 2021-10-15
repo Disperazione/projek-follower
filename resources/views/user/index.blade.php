@@ -9,30 +9,36 @@
     <!--
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">-->
-    <link rel="stylesheet" href="{{ asset ('assets/user/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset ('assets/user/css/boxicons.min.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
-    <link rel="stylesheet" href="{{ asset ('assets/user/css/style.css') }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ asset('assets/user/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/user/css/boxicons.min.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <link rel="stylesheet" href="{{ asset('assets/user/css/style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
     <title>Yuk, Tambah Followers!</title>
 
     <style>
-        .order{
+        .order {
             width: 1300px;
             margin: 0px auto;
         }
-        .card{
+
+        .card {
             border: none;
         }
-        .alert-warning{
+
+        .alert-warning {
             margin-top: -20px;
             margin-bottom: 30px;
         }
-        .info-text{
+
+        .info-text {
             font-size: 13px;
         }
+
     </style>
 </head>
 
@@ -123,137 +129,149 @@
 
     {{-- ORDER --}}
     <section id="contact">
-    <div class="row order">
-        <div class="col-sm-8">
-          <div class="card card-effect">
-            <div class="card-header">
-                <i class="fas fa-shopping-cart mr-2"></i> Pesan Baru
-            </div>
-            <div class="card-body">
-                <div class="row justify-content-center">
-                    <div class="mt-4 pb-5">
-                        <form action="" method="post" enctype="">
-                            <div class="alert alert-warning col-12" role="alert">
-                                <i class="fas fa-exclamation-triangle mr-2"></i>
-                                Sebelum mengisi form pastikan Anda sudah membaca Informasi yang terletak di kanan form.
-                            </div>
-                            <div class="row justify-content-center mb-1">
-                                <label for="" class="label-form col-md-12 mb-3">
-                                    Kategori
-                                    <select name="" id="" class="form-control">
-                                        <option value="plh">--Pilih satu--</option>
-                                        <option value="plh">Twitter</option>
-                                        <option value="plh">Instagram</option>
-                                    </select>
-                                </label>
-                            </div>
-                            <div class="row justify-content-center mb-1">
-                                <label for="" class="label-form col-md-12 mb-3">
-                                    Layanan
-                                    <select name="" id="" class="form-control">
-                                        <option value="plh">--Pilih satu--</option>
-                                    </select>
-                                </label>
-                            </div>
-                            <div class="row justify-content-center mb-1">
-                                <label for="" class="label-form col-md-12 mb-3">
-                                    Deskripsi Layanan
-                                    <div id="">
-                                        <span class="form-control" id="">-</span>
-                                        <input type="number" class="d-none" id="" name="">
+        <div class="row order">
+            <div class="col-sm-8">
+                <div class="card card-effect">
+                    <div class="card-header">
+                        <i class="fas fa-shopping-cart mr-2"></i> Pesan Baru
+                    </div>
+                    <div class="card-body">
+                        <div class="row justify-content-center">
+                            <div class="mt-4 pb-5">
+                                <form action="{{ route('user.store') }}" method="post" enctype="">
+                                    @csrf
+                                    <div class="alert alert-warning col-12" role="alert">
+                                        <i class="fas fa-exclamation-triangle mr-2"></i>
+                                        Sebelum mengisi form pastikan Anda sudah membaca Informasi yang terletak di
+                                        kanan form.
                                     </div>
-                                </label>
-                            </div>
-                            <div class="row justify-content-center">
-                                <label for="" class="label-form col-md-4 mb-3">
-                                    Minimal Pesan
-                                    <div id="">
-                                        <span class="form-control" id="">0</span>
-                                        <input type="number" class="d-none" id="" name="">
+                                    <div class="row justify-content-center mb-1">
+                                        <label for="ketgori" class="label-form col-md-12 mb-3">
+                                            Kategori
+                                            <select name="kategori" id="kategori" class="form-control">
+                                                <option value="plh">--Pilih satu--</option>
+                                                <option value="Instagram">Instagram</option>
+                                                <option value="Tiktok">Tiktok</option>
+                                                <option value="Shopee">Shopee</option>
+                                            </select>
+                                        </label>
                                     </div>
-                                </label>
-                                <label for="" class="label-form col-md-4 mb-3">
-                                    Maksimal Pesan
-                                    <div id="">
-                                        <span class="form-control" id="">0</span>
-                                        <input type="number" class="d-none" id="" name="">
+                                    <div class="row justify-content-center mb-1">
+                                        <label for="layanan" class="label-form col-md-12 mb-3">
+                                            Layanan
+                                            <select name="layanan" id="layanan" class="form-control">
+                                                <option value="plh">--Pilih satu--</option>
+                                            </select>
+                                        </label>
                                     </div>
-                                </label>
-                                <label for="" class="label-form col-md-4 mb-3">
-                                    Harga/1000
-                                    <div id="">
-                                        <span class="form-control" id="">0</span>
-                                        <input type="number" class="d-none" id="" name="">
+                                    <div class="row justify-content-center mb-1">
+                                        <label for="deks" class="label-form col-md-12 mb-3">
+                                            Deskripsi Layanan
+                                            <div id="desk">
+                                                <span class="form-control" id="des">-</span>
+                                                <input type="number" class="d-none" id="" name="">
+                                            </div>
+                                        </label>
                                     </div>
-                                </label>
+                                    <div class="row justify-content-center">
+                                        <label for="" class="label-form col-md-4 mb-3">
+                                            Minimal Pesan
+                                            <div id="min">
+                                                <span class="form-control" id="mip">0</span>
+                                                <input type="number" class="d-none" id="mimps" name="">
+                                            </div>
+                                        </label>
+                                        <label for="" class="label-form col-md-4 mb-3">
+                                            Maksimal Pesan
+                                            <div id="max">
+                                                <span class="form-control" id="mkp">0</span>
+                                                <input type="number" class="d-none" id="mkps" name="">
+                                            </div>
+                                        </label>
+                                        <label for="" class="label-form col-md-4 mb-3">
+                                            Harga/1000
+                                            <div id="hargak">
+                                                <span class="form-control" id="hargaks">0</span>
+                                                <input type="number" class="d-none" id="hargk" name="hargaperk">
+                                                <input type="number" class="d-none" id="realpr" value="">
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="row justify-content-center mb-3">
+                                        <label for="" class="label-form col-md-12 mb-1">
+                                            Target
+                                            <textarea name="target" id="" class="form-control" cols=" 30"
+                                                rows="1"></textarea>
+                                        </label>
+                                    </div>
+                                    <div class="row justify-content-center">
+                                        <label for="" class="label-form col-md-6 mb-3">
+                                            Jumlah
+                                            <input type="number" class="form-control" id="jumlah" name="jumlah">
+                                        </label>
+                                        <label for="" class="label-form col-md-6 mb-3">
+                                            Total Harga
+                                            <span class="form-control" id="ttl">0</span>
+                                            <input type="number" class="d-none" id="total" name="total">
+                                        </label>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <button type="submit" class="btn btn-success col-md-2">Submit</button>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="row justify-content-center mb-3">
-                                <label for="" class="label-form col-md-12 mb-1">
-                                    Target
-                                    <textarea name="" id="" class="form-control" cols=" 30" rows="1"></textarea>
-                                </label>
-                            </div>
-                            <div class="row justify-content-center">
-                                <label for="nama" class="label-form col-md-6 mb-3">
-                                    Jumlah
-                                    <input type="number" name="qty" id="qty" class="form-control" value="0">
-                                </label>
-                                <label for="" class="label-form col-md-6 mb-3">
-                                    Total Harga
-                                    <span class="form-control" id="ttl">0</span>
-                                    <input type="number" class="d-none" id="" name="">
-                                </label>
-                            </div>
-                            <div class="row mt-3">
-                                <button type="submit" class="btn btn-danger col-md-2 mr-3">Reset</button>
-                                <button type="submit" class="btn btn-success col-md-2">Submit</button>
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="card card-effect">
-              <div class="card-header">
-                <i class="fas fa-exclamation-circle mr-2"></i> Informasi
-              </div>
-            <div class="card-body info-text">
-                <ul>
-                    <li>Langkah-langkah membuat pesanan baru :</li>
-                    <ul type="circle">
-                        <li>Pilih salah satu Kategori.</li>
-                        <li>Pilih salah satu Layanan yang ingin dipesan.</li>
-                        <li>Masukkan Target pesanan sesuai ketentuan yang diberikan layanan tersebut.</li>
-                        <li>Masukkan Jumlah Pesanan yang Diinginkan.</li>
-                        <li>Klik Submit untuk membuat pesanan baru.</li>
-                    </ul>
-                    <br>
-                    <li>Ketentuan membuat pesanan baru :</li>
-                    <ul type="circle">
-                        <li>Pastikan Data yang diMasukkan Benar.</li>
-                        <li>Di Pastikan Akun Sewaktu Diproses Tidak di PRIVATE</li>
-                        <li>Jika Membeli Followers Instagram maka Target diisikan Dengan Username Instagram bukan link Instagram</li>
-                        <li>Jika Membeli Followers TIK TOK Maka Target diisikan Dengan Link/Url Akun TIK TOK bukan username akun TIK TOK</li>
-                        <li>Jika Membeli Subscribe YOUTUBE Maka Target diisikan Dengan Link/Url Akun YOUTUBE bukan nama akun YOUTUBE</li>
-                        <li>Jika Membeli Likes/Views INTAGRAM, TIK TOK, YOUTUBE. Maka Target diisikan Link/Url Postingan Tersebut</li>
-                        <li>Dilarang melakukan pemesanan ganda pada <u>data yang sama</u> jika status pemesanan sebelumnya masih Pending/Processing. Silakan tunggu hingga status pemesanan sebelumnya Error/Success, baru kemudian pesan kembali.</li>
-                        <li>Jika ingin membuat pesanan dengan Target yang sama dengan pesanan yang sudah pernah dipesan sebelumnya, mohon menunggu sampai pesanan sebelumnya selesai diproses</li>
-                        <li>Segala Kesalahan Yang Dilakukan Member itu Diluar Tanggung Jawab Kami.</li>
-                        <li>Jika terjadi kesalahan / mendapatkan pesan gagal yang kurang jelas, silahkan hubungi Admin untuk informasi lebih lanjut.</li>
-                    </ul>
-                </ul>
+            <div class="col-sm-4">
+                <div class="card card-effect">
+                    <div class="card-header">
+                        <i class="fas fa-exclamation-circle mr-2"></i> Informasi
+                    </div>
+                    <div class="card-body info-text">
+                        <ul>
+                            <li>Langkah-langkah membuat pesanan baru :</li>
+                            <ul type="circle">
+                                <li>Pilih salah satu Kategori.</li>
+                                <li>Pilih salah satu Layanan yang ingin dipesan.</li>
+                                <li>Masukkan Target pesanan sesuai ketentuan yang diberikan layanan tersebut.</li>
+                                <li>Masukkan Jumlah Pesanan yang Diinginkan.</li>
+                                <li>Klik Submit untuk membuat pesanan baru.</li>
+                            </ul>
+                            <br>
+                            <li>Ketentuan membuat pesanan baru :</li>
+                            <ul type="circle">
+                                <li>Pastikan Data yang diMasukkan Benar.</li>
+                                <li>Di Pastikan Akun Sewaktu Diproses Tidak di PRIVATE</li>
+                                <li>Jika Membeli Followers Instagram maka Target diisikan Dengan Username Instagram
+                                    bukan link Instagram</li>
+                                <li>Jika Membeli Followers TIK TOK Maka Target diisikan Dengan Link/Url Akun TIK TOK
+                                    bukan username akun TIK TOK</li>
+                                <li>Jika Membeli Subscribe YOUTUBE Maka Target diisikan Dengan Link/Url Akun YOUTUBE
+                                    bukan nama akun YOUTUBE</li>
+                                <li>Jika Membeli Likes/Views INTAGRAM, TIK TOK, YOUTUBE. Maka Target diisikan Link/Url
+                                    Postingan Tersebut</li>
+                                <li>Dilarang melakukan pemesanan ganda pada <u>data yang sama</u> jika status pemesanan
+                                    sebelumnya masih Pending/Processing. Silakan tunggu hingga status pemesanan
+                                    sebelumnya Error/Success, baru kemudian pesan kembali.</li>
+                                <li>Jika ingin membuat pesanan dengan Target yang sama dengan pesanan yang sudah pernah
+                                    dipesan sebelumnya, mohon menunggu sampai pesanan sebelumnya selesai diproses</li>
+                                <li>Segala Kesalahan Yang Dilakukan Member itu Diluar Tanggung Jawab Kami.</li>
+                                <li>Jika terjadi kesalahan / mendapatkan pesan gagal yang kurang jelas, silahkan hubungi
+                                    Admin untuk informasi lebih lanjut.</li>
+                            </ul>
+                        </ul>
+                    </div>
+                </div>
             </div>
-          </div>
+            <br><br><br>
         </div>
-        <br><br><br>
-    </div>
-</section>
+    </section>
     {{-- ORDER --}}
 
     <!-- CONTACT -->
-   
+
     <footer>
         <div class="footer-top">
             <div class="container">
@@ -293,7 +311,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <p class="mb-0">© 2021 copyright all right reserved | Designed with <i
-                            class="bx bx-heart text-danger"></i> by<a
+                                class="bx bx-heart text-danger"></i> by<a
                                 href="https://www.youtube.com/channel/UCYMEEnLzGGGIpQQ3Nu_sBsQ"
                                 class="text-white">Team 10</a></p>
                     </div>
@@ -315,6 +333,98 @@
     <script src="js/wow.js"></script>
     <script>
         new WOW().init();
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            $('#kategori').change(function() {
+                let cid = $(this).val();
+                $.ajax({
+                    url: '/getLayanan',
+                    type: 'post',
+                    data: 'cid=' + cid + '&_token={{ csrf_token() }}',
+                    success: function(result) {
+                        $('#layanan').html(result);
+                    },
+                });
+                $('#a').html('0');
+                $('#ab').val('0');
+                $('#b').html('-');
+                $('#c').html('0');
+                $('#cd').val('0');
+                $('#d').html('0');
+                $('#de').val('0');
+            });
+            $('#layanan').change(function() {
+                let cid = $(this).val();
+                let cud = $('#kategori').val();
+                $.ajax({
+                    url: '/getLG',
+                    type: 'post',
+                    data: 'cid=' + cid + '&cud=' + cud + '&_token={{ csrf_token() }}',
+                    success: function(result) {
+                        $('#hargak').html(result);
+                        let a = $('#jumlah').val();
+                        let b = $('#realpr').val();
+                        $('#ttl').html(new Intl.NumberFormat().format(b * a));
+                        $('#total').val(b * a);
+                    },
+                });
+            });
+
+            $('#layanan').change(function() {
+                let cid = $(this).val();
+                let cud = $('#kategori').val();
+                $.ajax({
+                    url: '/getDesk',
+                    type: 'post',
+                    data: 'cid=' + cid + '&cud=' + cud + '&_token={{ csrf_token() }}',
+                    success: function(result) {
+                        $('#desk').html(result);
+                    },
+                });
+            });
+
+            $('#layanan').change(function() {
+                let cid = $(this).val();
+                let cud = $('#kategori').val();
+                $.ajax({
+                    url: '/getMin',
+                    type: 'post',
+                    data: 'cid=' + cid + '&cud=' + cud + '&_token={{ csrf_token() }}',
+                    success: function(result) {
+                        $('#min').html(result);
+                    },
+                });
+            });
+
+            $('#layanan').change(function() {
+                let cid = $(this).val();
+                let cud = $('#kategori').val();
+                $.ajax({
+                    url: '/getMax',
+                    type: 'post',
+                    data: 'cid=' + cid + '&cud=' + cud + '&_token={{ csrf_token() }}',
+                    success: function(result) {
+                        $('#max').html(result);
+                    },
+                });
+            });
+        });
+
+        $('#jumlah').change(function() {
+            let a = $('#jumlah').val();
+            let b = $('#realpr').val();
+            $('#ttl').html(new Intl.NumberFormat().format(b * a));
+            $('#total').val(b * a);
+        });
+        $('#jumlah').keyup(function() {
+            let a = $('#jumlah').val();
+            let b = $('#realpr').val();
+            $('#ttl').html(new Intl.NumberFormat().format(b * a));
+            $('#total').val(b * a);
+        });
     </script>
 
     <!--

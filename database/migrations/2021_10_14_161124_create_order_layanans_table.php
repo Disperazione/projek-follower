@@ -17,10 +17,10 @@ class CreateOrderLayanansTable extends Migration
             $table->id();
             $table->string('kategori');
             $table->text('layanan');
-            $table->longText('desklay');
             $table->text('target');
             $table->integer('jumlah');
             $table->integer('total');
+            $table->enum('status', ['pending', 'proses', 'selesai']);
             $table->timestamps();
         });
     }

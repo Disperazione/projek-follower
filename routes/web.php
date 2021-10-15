@@ -32,6 +32,12 @@ Route::prefix('admin')->group(function () {
 });
 
 Route::get('/user', [userController::class, 'index'])->name('user.index');
+Route::post('/getLayanan', [userController::class, 'getLayanan']);
+Route::post('/getDesk', [userController::class, 'getDesk']);
+Route::post('/getLG', [userController::class, 'getHarga']);
+Route::post('/getMin', [userController::class, 'getMin']);
+Route::post('/getMax', [userController::class, 'getMax']);
+Route::post('/user/store', [userController::class, 'store'])->name('user.store');
 
 // Route::group(['prefix' => 'admin'], function () {
 //     Voyager::routes();
