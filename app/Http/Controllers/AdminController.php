@@ -133,4 +133,9 @@ class AdminController extends Controller
     {
         return view('admin.layanan.addlayanan');
     }
+
+    public function dataorder()
+    {
+        return view('admin.order.dataorder');
+    }
 }

@@ -25,9 +25,11 @@ Route::prefix('admin')->group(function () {
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');
         Route::get('/order', [AdminController::class, 'order'])->name('admin.order');
+        Route::get('/dataorder',[Admincontroller::class, 'dataorder'])->name('admin.dataorder');
 
         Route::get('/layanan', [AdminController::class, 'layanan'])->name('admin.layanan');
         Route::get('/addlayanan', [AdminController::class, 'addLayanan'])->name('admin.addLayanan');
+
     });
 });
 

@@ -8,6 +8,8 @@
             <li class="menu-header">Master</li>
             <li><a class="nav-link" href="{{ route('admin.order') }}"><i class="far fa-square"></i>
                     <span>Order</span></a></li>
+            <li><a class="nav-link" href="{{ route('admin.dataorder') }}"><i class="far fa-square"></i>
+                <span>Data Order</span></a></li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Layanan</span></a>
