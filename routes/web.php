@@ -40,6 +40,7 @@ Route::post('/getLG', [userController::class, 'getHarga']);
 Route::post('/getMin', [userController::class, 'getMin']);
 Route::post('/getMax', [userController::class, 'getMax']);
 Route::post('/user/store', [userController::class, 'store'])->name('user.store');
+Route::get('/user/pembayaran', [UserController::class, 'bayar']);
 
 // Route::group(['prefix' => 'admin'], function () {
 //     Voyager::routes();

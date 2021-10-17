@@ -51,7 +51,7 @@
     </div>
 
     {{-- data singular --}}
-    {{-- <div class="row">
+    <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -59,22 +59,20 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table class="table table-striped" id="table-1">
+                        <table class="table table-striped" id="table-2">
                             <thead class="text-center">
                                 <tr>
-                                    <th class="text-center">ID</th>
+                                    <th class="text-center">NO</th>
                                     <th>Kategori</th>
                                     <th>Layanan</th>
-                                    <th>Harga/1000</th>
-                                    <th>Min.Pesan</th>
-                                    <th>Maks.Pesan</th>
-                                    <th>Deskripsi</th>
+                                    <th>Target</th>
+                                    <th>Jumlah</th>
+                                    <th>Total Harga</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                     <tr>
-                                        <td></td>
                                         <td></td>
                                         <td></td>
                                         <td></td>
@@ -92,7 +90,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 @endsection
 
 @push('script')

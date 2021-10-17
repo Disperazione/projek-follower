@@ -219,6 +219,7 @@
                                         <button type="submit" class="btn btn-success col-md-2">Submit</button>
                                     </div>
                                 </form>
+                                <a class="btn btn-primary mt-4" href="/user/pembayaran" role="button">QR</a>
                             </div>
                         </div>
                     </div>

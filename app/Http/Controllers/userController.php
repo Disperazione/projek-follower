@@ -107,4 +107,9 @@ class userController extends Controller
 
         return redirect()->route('user.index');
     }
+
+    public function bayar()
+    {
+        return view ('user.bayar');
+    }
 }
