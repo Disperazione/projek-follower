@@ -39,12 +39,14 @@
         .info-text {
             font-size: 13px;
         }
-        .isi{
+
+        .isi {
             width: 300px;
-            height:300px;
+            height: 300px;
             box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
             margin-left: 45px;
         }
+
     </style>
 </head>
 
@@ -82,29 +84,38 @@
 
     <section id="pembayaran">
         <div class="bayar">
-                <div class="card card-effect">
-                    <div class="card">
-                        <h2 class="text-center"> <U>Pembayaran</U> </h2>
-                    </div>
-                    <div class="card-body info-text">
-                        <h4 class="mt-5 text-center">Scan QR Qode</h4>
-                        {{-- <div class="card text-center isi">
+            <div class="card card-effect">
+                <div class="card">
+                    <h2 class="text-center"> <U>Pembayaran</U> </h2>
+                </div>
+                <div class="card-body info-text">
+                    <h4 class="mt-5 text-center">Scan QR Code</h4>
+                    {{-- <div class="card text-center isi">
                             tempat naro qr
                         </div> --}}
-                        <div class="row">
-                            <div class="col-4"></div>
-                            <div class="col-4">
-                                <div class="card isi text-center">
-                                    tempat naro qr
+                    <div class="row">
+                        <div class="col-4"></div>
+                        <div class="col-4">
+                            <div class="card isi text-center">
+                                <div class="justify-content-center pt-3">
+                                    {!! QrCode::size(270)->generate('https://link.dana.id/qr/ka1jgbj') !!}
                                 </div>
                             </div>
-                            <div class="col-4"> </div>
                         </div>
+                        <div class="col-4"> </div>
                     </div>
-                    <div class="button position-relative">
-                        <a class="btn btn-primary mt-4 position-relative  start-50 translate-middle" href="/user" role="button">Selesai</a>
-                    </div>
-                </div>  
+                </div>
+                <div class="button position-relative">
+                    <form action="{{ route('user.update', [$id->id]) }}" method="post">
+                        @csrf
+                        {{-- {{ dd($id->id) }} --}}
+                        <input type="text" class="d-none" value="sudah" name="pembayaran">
+                        {{-- <input type="text" class="d-none" value="proses" name="status"> --}}
+                        <button class="btn btn-primary mt-4 position-relative  start-50 translate-middle"
+                            type="submit">Selesai</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -170,7 +181,6 @@
     <script src="js/wow.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
- 
 
     <!--
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

@@ -21,6 +21,7 @@ class CreateOrderLayanansTable extends Migration
             $table->integer('jumlah');
             $table->integer('total');
             $table->enum('status', ['pending', 'proses', 'selesai']);
+            $table->enum('pembayaran', ['belum', 'sudah']);
             $table->timestamps();
         });
     }

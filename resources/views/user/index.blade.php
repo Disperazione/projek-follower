@@ -66,7 +66,9 @@
                         <a class="nav-link" href="#contact">Order</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
+                        <a class="nav-link"
+                            href="https://api.whatsapp.com/send?phone=6289530807796&text=Bagaimana%20dengan%20pesanan%20saya%20?"
+                            target="_blank">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -102,7 +104,7 @@
                             <i class='bx bxs-user'></i>
                         </div>
                         <h5 class="mt-4 mb-2">Pelanggan</h5>
-                        <p>10001 </p>
+                        <p>{{ $datas->where('pembayaran', 'sudah')->count() }}</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-6">
@@ -111,7 +113,7 @@
                             <i class='bx bxs-rocket'></i>
                         </div>
                         <h5 class="mt-4 mb-2">Jumlah Pesanan</h5>
-                        <p>99 </p>
+                        <p>{{ $datas->where('status', 'selesai')->count() }}</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-6">
@@ -120,7 +122,7 @@
                             <i class='bx bxs-cog'></i>
                         </div>
                         <h5 class="mt-4 mb-2">Layanan</h5>
-                        <p>56</p>
+                        <p>{{ $data->count() }}</p>
                     </div>
                 </div>
             </div>
@@ -219,7 +221,6 @@
                                         <button type="submit" class="btn btn-success col-md-2">Submit</button>
                                     </div>
                                 </form>
-                                <a class="btn btn-primary mt-4" href="/user/pembayaran" role="button">QR</a>
                             </div>
                         </div>
                     </div>
@@ -258,7 +259,11 @@
                                     sebelumnya Error/Success, baru kemudian pesan kembali.</li>
                                 <li>Jika ingin membuat pesanan dengan Target yang sama dengan pesanan yang sudah pernah
                                     dipesan sebelumnya, mohon menunggu sampai pesanan sebelumnya selesai diproses</li>
-                                <li>Segala Kesalahan Yang Dilakukan Member itu Diluar Tanggung Jawab Kami.</li>
+                                <li>Jika pesanan belum masuk, Harap kontak admin dengan megklik <a
+                                        href="https://api.whatsapp.com/send?phone=6289530807796&text=Bagaimana%20dengan%20pesanan%20saya%20?"
+                                        target="
+                                        _blank">Contact</a>
+                                </li>
                                 <li>Jika terjadi kesalahan / mendapatkan pesan gagal yang kurang jelas, silahkan hubungi
                                     Admin untuk informasi lebih lanjut.</li>
                             </ul>

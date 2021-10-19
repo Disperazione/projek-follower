@@ -13,7 +13,9 @@ class userController extends Controller
     public function index()
     {
         $data = Layanan::all();
-        return view('user.index', compact('data'));
+        $datas = OrderLayanan::all();
+        // dd($data);
+        return view('user.index', compact('data', 'datas'));
     }
 
     public function getLayanan(Request $request)
@@ -103,13 +105,33 @@ class userController extends Controller
             'jumlah' => $request->jumlah,
             'total' => $request->total,
             'status' => 'pending',
+            'pembayaran' => 'belum',
+        ]);
+
+        return redirect()->route('user.bayar', ['target' => $request->target]);
+    }
+
+    public function bayar($target)
+    {
+        // $all = OrderLayanan::all();
+        // $pembayaran = OrderLayanan::where('target', $target)->latest()->first();
+        // dd($target);
+        if (OrderLayanan::where('target', $target)->first() == Null or OrderLayanan::where('target', $target)->latest()->first()->pembayaran == 'sudah') {
+            return view('error');
+        } else {
+            $id = OrderLayanan::where('target', $target)->latest()->first();
+            // dd($id);
+            return view('user.bayar', compact('id'));
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+        // dd($id);
+        OrderLayanan::find($id)->update([
+            'pembayaran' => $request->pembayaran
         ]);
 
         return redirect()->route('user.index');
-    }
-
-    public function bayar()
-    {
-        return view ('user.bayar');
     }
 }

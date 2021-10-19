@@ -13,6 +13,7 @@ class OrderLayanan extends Model
         'layanan',
         'target',
         'jumlah',
+        'pembayaran',
         'total',
         'status',
     ];

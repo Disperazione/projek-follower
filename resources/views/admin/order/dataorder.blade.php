@@ -32,16 +32,17 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($data[1] as $id => $item)
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td>{{ ++$id }}</td>
+                                        <td>{{ $item->nama }}</td>
+                                        <td>{{ $item->tlp }}</td>
+                                        <td>{{ $item->menu }}</td>
+                                        <td>{{ $item->qty }}</td>
+                                        <td>Rp.{{ number_format($item->total_harga) }}</td>
                                         <td><a href="#" class="btn btn-secondary">Detail</a></td>
                                     </tr>
-                              
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -68,22 +69,48 @@
                                     <th>Target</th>
                                     <th>Jumlah</th>
                                     <th>Total Harga</th>
+                                    <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach ($data[0] as $id => $item)
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                           
+                                        <td>{{ ++$id }}</td>
+                                        <td>{{ $item->kategori }}</td>
+                                        <td>{{ $item->layanan }}</td>
+                                        <td>{{ $item->target }}</td>
+                                        <td>{{ $item->jumlah }}</td>
+                                        <td>Rp.{{ number_format($item->total) }}</td>
+                                        <td id="{{ +$id }}sts">
+                                            @if ($item->status == 'proses')
+                                                <div id="{{ +$id }}status"
+                                                    class="badge bg-primary text-capitalize text-white"
+                                                    data-id='{{ +$id }}'>
+                                                    {{ $item->status }}
+                                                </div>
+                                            @else
+                                                @if ($item->status == 'selesai')
+                                                    <div id="{{ +$id }}status"
+                                                        class="badge bg-success text-capitalize text-white"
+                                                        data-id='{{ +$id }}'>
+                                                        {{ $item->status }}
+                                                    </div>
+                                                @else
+                                                    <div id="{{ +$id }}status"
+                                                        class="badge bg-danger text-capitalize text-white"
+                                                        data-id='{{ +$id }}'>
+                                                        {{ $item->status }}
+                                                    </div>
+                                                @endif
+                                            @endif
+                                            <input type="hidden" name="" id="{{ +$id }}hides"
+                                                value="{{ $item->status }}">
                                         </td>
                                         <td><a href="#" class="btn btn-secondary">Detail</a></td>
                                     </tr>
-                              
+                                @endforeach
+
                             </tbody>
                         </table>
                     </div>
@@ -101,4 +128,26 @@
 
     <!-- Page Specific JS File -->
     <script src="{{ asset('assets/js/page/modules-datatables.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            $('.badge').click(function() {
+                let cid = $(this).data('id');
+                let a = $('#' + cid + 'hides').val();
+                console.log(a);
+                if (a == 'pending' || a == 'proses') {
+                    $.ajax({
+                        url: '/admin/getStatus',
+                        type: 'post',
+                        data: 'cid=' + cid + '&cud=' + a + '&_token={{ csrf_token() }}',
+                        success: function(result) {
+                            $('#' + cid + 'sts').html(result);
+                        },
+                    });
+                }
+            });
+        });
+    </script>
+    <script>
+        console.log({!! json_encode($data[0][0]['id']) !!});
+    </script>
 @endpush

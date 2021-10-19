@@ -25,11 +25,11 @@ Route::prefix('admin')->group(function () {
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');
         Route::get('/order', [AdminController::class, 'order'])->name('admin.order');
-        Route::get('/dataorder',[Admincontroller::class, 'dataorder'])->name('admin.dataorder');
+        Route::get('/dataorder', [Admincontroller::class, 'dataorder'])->name('admin.dataorder');
 
         Route::get('/layanan', [AdminController::class, 'layanan'])->name('admin.layanan');
         Route::get('/addlayanan', [AdminController::class, 'addLayanan'])->name('admin.addLayanan');
-
+        Route::post('/getStatus', [AdminController::class, 'getStatus']);
     });
 });
 
@@ -40,7 +40,8 @@ Route::post('/getLG', [userController::class, 'getHarga']);
 Route::post('/getMin', [userController::class, 'getMin']);
 Route::post('/getMax', [userController::class, 'getMax']);
 Route::post('/user/store', [userController::class, 'store'])->name('user.store');
-Route::get('/user/pembayaran', [UserController::class, 'bayar']);
+Route::get('/user/pembayaran/{target}', [UserController::class, 'bayar'])->name('user.bayar');
+Route::post('/user/update/{id}', [userController::class, 'update'])->name('user.update');
 
 // Route::group(['prefix' => 'admin'], function () {
 //     Voyager::routes();

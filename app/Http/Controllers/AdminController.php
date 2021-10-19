@@ -136,6 +136,39 @@ class AdminController extends Controller
 
     public function dataorder()
     {
-        return view('admin.order.dataorder');
+        $data = [
+            OrderLayanan::all(),
+            OrderMakanan::all()
+        ];
+        return view('admin.order.dataorder', compact('data'));
+    }
+
+    public function getStatus(Request $request)
+    {
+        $id = $request->post('cid');
+        if ($request->post('cud') == 'pending') {
+            OrderLayanan::find($id)->update([
+                'status' => 'proses'
+            ]);
+        } else if ($request->post('cud') == 'proses') {
+            OrderLayanan::find($id)->update([
+                'status' => 'selesai'
+            ]);
+        }
+
+        $data = OrderLayanan::where('id', $id)->get();
+        $html = ' ';
+
+        foreach ($data as $item) {
+            if ($item->status == 'selesai') {
+                $html .= '<div id="' . $item->id . 'status" class="badge bg-success text-capitalize text-white" data-id="' . $item->id . '">' . $item->status . '</div>';
+                $html .= '<input type="hidden" name="" id="' . $item->id . 'hides" value="' . $item->status . '">';
+            } else {
+                $html .= '<div id="' . $item->id . 'status" class="badge bg-primary text-capitalize text-white" data-id="' . $item->id . '">' . $item->status . '</div>';
+                $html .= '<input type="hidden" name="" id="' . $item->id . 'hides" value="' . $item->status . '">';
+            }
+        }
+
+        return $html;
     }
 }

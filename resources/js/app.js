@@ -10,7 +10,9 @@ let config = {
     headers: {
         'Content-Type': 'multipart/form-data',
         'Accept': 'application/json',
-        'Access-Control-Allow-Origin': '*'
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Headers': 'POST',
+        'withcredentials': 'true'
     }
 }
 axios.post(`${process.env.MIX_URL_TOP_ONE_PANEL}/api/services`, formData, config).then(
