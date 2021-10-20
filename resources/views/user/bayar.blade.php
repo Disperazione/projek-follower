@@ -21,38 +21,94 @@
     <title>Yuk, Tambah Followers!</title>
 
     <style>
-        .bayar {
-            width: 1300px;
-            margin: 0px auto;
-            font-family: "Sora", sans-serif;
-        }
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap');
 
-        .card {
-            border: none;
-        }
+*, *:after, *:before {
+	box-sizing: border-box;
+}
 
-        .alert-warning {
-            margin-top: -20px;
-            margin-bottom: 30px;
-        }
+body {
+	font-family: "Sora", sans-serif;
+	line-height: 1.5;
+	background-color: #f1f3fb;
+}
 
-        .info-text {
-            font-size: 13px;
-        }
+img {
+	max-width: 100%;
+	display: block;
+}
 
-        .isi {
-            width: 300px;
-            height: 300px;
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-            margin-left: 45px;
-        }
 
+
+
+.card {
+	margin: 2rem auto;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	max-width: 425px;
+	background-color: #FFF;
+	border-radius: 10px;
+	box-shadow: 0 10px 20px 0 rgba(#999, .25);
+	padding: .75rem;
+}
+
+.card-image {
+	border-radius: 8px;
+	overflow: hidden;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	background-position: 0 5%;
+	position: relative;
+    width: 300px;
+    margin-left: 47px;
+}
+
+.card-heading {
+	position: absolute;
+	left: 10%;
+	top: 15%;
+	right: 10%;
+	font-size: 1.75rem;
+	font-weight: 700;
+	color: #735400;
+	line-height: 1.222;
+	small {
+		display: block;
+		font-size: .75em;
+		font-weight: 400;
+		margin-top: .25em;
+	}
+}
+.action-button {
+	font: inherit;
+	font-size: 1.25rem;
+	padding: 1em;
+	width: 100%;
+	font-weight: 500;
+	background-color: #6658d3;
+	border-radius: 6px;
+	color: #FFF;
+	border: 0;
+	&:focus {
+		outline: 0;
+	}
+}
+
+.card-info {
+	padding: 1rem 1rem;
+	text-align: center;
+	font-size: .875rem;
+	color: #8597a3;
+	a {
+		display: block;
+		color: #6658d3;
+		text-decoration: none;
+	}
+}
     </style>
 </head>
 
 <body>
-
-    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg py-3 sticky-top navbar-light bg-white">
         <div class="container">
             <a class="navbar-brand" href="#">
@@ -74,50 +130,44 @@
                         <a class="nav-link" href="#contact">Order</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/login">Login</a>
+                        <a class="nav-link"
+                            href="https://api.whatsapp.com/send?phone=6289530807796&text=Bagaimana%20dengan%20pesanan%20saya%20?"
+                            target="_blank">Contact</a>
                     </li>
                 </ul>
             </div>
         </div>
-    </nav><!-- //NAVBAR -->
+    </nav>
 
-
-    <section id="pembayaran">
-        <div class="bayar">
-            <div class="card card-effect">
-                <div class="card">
-                    <h2 class="text-center"> <U>Pembayaran</U> </h2>
-                </div>
-                <div class="card-body info-text">
-                    <h4 class="mt-5 text-center">Scan QR Code</h4>
-                    {{-- <div class="card text-center isi">
-                            tempat naro qr
-                        </div> --}}
-                    <div class="row">
-                        <div class="col-4"></div>
-                        <div class="col-4">
-                            <div class="card isi text-center">
-                                <div class="justify-content-center pt-3">
-                                    {!! QrCode::size(270)->generate('https://link.dana.id/qr/ka1jgbj') !!}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-4"> </div>
-                    </div>
-                </div>
-                <div class="button position-relative">
-                    <form action="{{ route('user.update', [$id->id]) }}" method="post">
-                        @csrf
-                        {{-- {{ dd($id->id) }} --}}
-                        <input type="text" class="d-none" value="sudah" name="pembayaran">
-                        {{-- <input type="text" class="d-none" value="proses" name="status"> --}}
-                        <button class="btn btn-primary mt-4 position-relative  start-50 translate-middle"
-                            type="submit">Selesai</button>
-                    </form>
+    {{-- qr --}}
+    <div class="qr">
+        <!-- code here -->
+        <div class="card">
+            
+            <div class="card-nama">
+                <h2 class="text-center pb-5"> <u> Pembayaran</u></h2>
+                <h3 class="text-center"><b>SINGULAR</b> </h3>
+                <h5 class="text-center">Scan QR Dibawah</h5>
+                
+            </div>
+            <div class="card-image text-center">	
+                <div class="justify-content-center p-3">
+                    {!! QrCode::size(270)->generate('https://link.dana.id/qr/ka1jgbj') !!}
                 </div>
             </div>
+            <div class="button position-relative pt-4">
+                <form action="{{ route('user.update', [$id->id]) }}" method="post">
+                    @csrf
+                    {{-- {{ dd($id->id) }} --}}
+                    <input type="text" class="d-none" value="sudah" name="pembayaran">
+                    {{-- <input type="text" class="d-none" value="proses" name="status"> --}}
+                    <button class="btn btn-success mt-4 position-relative  start-50 translate-middle"
+                        type="submit">Selesai</button>
+                </form>
+            </div>
         </div>
-    </section>
+    </div>
+
 
 
     <footer>

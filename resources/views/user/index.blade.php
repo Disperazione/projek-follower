@@ -104,7 +104,7 @@
                             <i class='bx bxs-user'></i>
                         </div>
                         <h5 class="mt-4 mb-2">Pelanggan</h5>
-                        <p>{{ $datas->where('pembayaran', 'sudah')->count() }}</p>
+                        {{-- <p>{{ $datas->where('pembayaran', 'sudah')->count() }}</p> --}}
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-6">
@@ -113,7 +113,7 @@
                             <i class='bx bxs-rocket'></i>
                         </div>
                         <h5 class="mt-4 mb-2">Jumlah Pesanan</h5>
-                        <p>{{ $datas->where('status', 'selesai')->count() }}</p>
+                        {{-- <p>{{ $datas->where('status', 'selesai')->count() }}</p> --}}
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-6">
@@ -122,7 +122,7 @@
                             <i class='bx bxs-cog'></i>
                         </div>
                         <h5 class="mt-4 mb-2">Layanan</h5>
-                        <p>{{ $data->count() }}</p>
+                        {{-- <p>{{ $data->count() }}</p> --}}
                     </div>
                 </div>
             </div>
