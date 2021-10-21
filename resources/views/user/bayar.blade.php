@@ -105,6 +105,85 @@ img {
 		text-decoration: none;
 	}
 }
+/*
+ CSS for the main interaction
+*/
+.tabset > input[type="radio"] {
+  position: absolute;
+  left: -200vw;
+}
+
+.tabset .tab-panel {
+  display: none;
+}
+
+.tabset > input:first-child:checked ~ .tab-panels > .tab-panel:first-child,
+.tabset > input:nth-child(3):checked ~ .tab-panels > .tab-panel:nth-child(2),
+.tabset > input:nth-child(5):checked ~ .tab-panels > .tab-panel:nth-child(3),
+.tabset > input:nth-child(7):checked ~ .tab-panels > .tab-panel:nth-child(4),
+.tabset > input:nth-child(9):checked ~ .tab-panels > .tab-panel:nth-child(5),
+.tabset > input:nth-child(11):checked ~ .tab-panels > .tab-panel:nth-child(6) {
+  display: block;
+}
+
+/*
+ Styling
+*/
+
+
+.tabset > label {
+  position: relative;
+  display: inline-block;
+  padding: 15px 15px 25px;
+  border: 1px solid transparent;
+  border-bottom: 0;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.tabset > label::after {
+  content: "";
+  position: absolute;
+  left: 15px;
+  bottom: 10px;
+  width: 22px;
+  height: 4px;
+  background: #8d8d8d;
+}
+
+.tabset > label:hover,
+.tabset > input:focus + label {
+  color: #06c;
+}
+
+.tabset > label:hover::after,
+.tabset > input:focus + label::after,
+.tabset > input:checked + label::after {
+  background: #06c;
+}
+
+.tabset > input:checked + label {
+  border-color: #ccc;
+  border-bottom: 1px solid #fff;
+  margin-bottom: -1px;
+}
+
+.tab-panel {
+  padding: 30px 0;
+  border-top: 1px solid #ccc;
+}
+
+/*
+ Demo purposes only
+*/
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+.tabset {
+  max-width: 65em;
+}
     </style>
 </head>
 
@@ -138,16 +217,54 @@ img {
             </div>
         </div>
     </nav>
+    
 
     {{-- qr --}}
-    <div class="qr">
-        <!-- code here -->
-        <div class="card">
+    <h2 class="text-center pt-3"> <u> Pembayaran</u></h2>
+<div class="card">
+<div class="tabset">
+    <!-- Tab 1 -->
+    <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked>
+    <label for="tab1">Dana</label>
+    <!-- Tab 2 -->
+    <input type="radio" name="tabset" id="tab2" aria-controls="rauchbier">
+    <label for="tab2">Gopay</label>
+    <!-- Tab 3 -->
+    <input type="radio" name="tabset" id="tab3" aria-controls="dunkles">
+    <label for="tab3">OVO</label>
+    
+    <div class="tab-panels">
+      <section id="marzen" class="tab-panel">
+    <div class="dana">
+        <div class="card-nama">
             
+            <h4 class="text-center"><b>SINGULAR</b> </h4>
+            <h5 class="text-center">Scan QR Dengan Dana</h5>
+            
+        </div>
+        <div class="card-image text-center">	
+            <div class="justify-content-center p-3">
+                {!! QrCode::size(270)->generate('https://link.dana.id/qr/ka1jgbj') !!}
+            </div>
+        </div>
+        <div class="button position-relative pt-4">
+            <form action="{{ route('user.update', [$id->id]) }}" method="post">
+                @csrf
+                {{-- {{ dd($id->id) }} --}}
+                <input type="text" class="d-none" value="sudah" name="pembayaran">
+                {{-- <input type="text" class="d-none" value="proses" name="status"> --}}
+                <button class="btn btn-success mt-4 position-relative  start-50 translate-middle"
+                    type="submit">Selesai</button>
+            </form>
+        </div>
+    </div>
+    </section>
+      <section id="rauchbier" class="tab-panel">
+        <div class="Gopay">
             <div class="card-nama">
-                <h2 class="text-center pb-5"> <u> Pembayaran</u></h2>
-                <h3 class="text-center"><b>SINGULAR</b> </h3>
-                <h5 class="text-center">Scan QR Dibawah</h5>
+                
+                <h4 class="text-center"><b>SINGULAR</b> </h4>
+                <h5 class="text-center">Scan QR Dengan Gopay</h5>
                 
             </div>
             <div class="card-image text-center">	
@@ -166,8 +283,41 @@ img {
                 </form>
             </div>
         </div>
+      </section>
+      <section id="dunkles" class="tab-panel">
+        <div class="OVO">
+            <div class="card-nama">
+                
+                <h4 class="text-center"><b>SINGULAR</b> </h4>
+                <h5 class="text-center">Scan QR Dengan OVO</h5>
+                
+            </div>
+            <div class="card-image text-center">	
+                <div class="justify-content-center p-3">
+                    {!! QrCode::size(270)->generate('https://link.dana.id/qr/ka1jgbj') !!}
+                </div>
+            </div>
+            <div class="button position-relative pt-4">
+                <form action="{{ route('user.update', [$id->id]) }}" method="post">
+                    @csrf
+                    {{-- {{ dd($id->id) }} --}}
+                    <input type="text" class="d-none" value="sudah" name="pembayaran">
+                    {{-- <input type="text" class="d-none" value="proses" name="status"> --}}
+                    <button class="btn btn-success mt-4 position-relative  start-50 translate-middle"
+                        type="submit">Selesai</button>
+                </form>
+            </div>
+        </div>
+      </section>
     </div>
+    
+  </div>
+</div>  
+  {{-- tutup --}}
+   
 
+
+    
 
 
     <footer>
