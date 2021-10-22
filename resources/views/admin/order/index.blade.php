@@ -8,107 +8,107 @@
     <div class="breadcrumb-item">Order</div>
 @endsection
 @section('main')
-<div class="row justify-content-center">
-    <div class="col-md-12">
-        <div class="card mt-4 pb-5 pt-5">
-            {{-- <form action="{{ route('store') }}" method="post"> --}}
-            <form action="{{ route('store') }}" method="post" enctype="multipart/form-data">
-                @csrf
-                <div class="row justify-content-center">
-                    <label for="bukti" class="label-form col-md-2 mb-3">
-                        <img src="{{ asset('assets/img/camera-lg.png') }}" alt="ss" srcset=""
-                            style="width: 90px; height: 80px;">
-                        <input type="file" name="bukti" id="bukti" class="d-none">
-                    </label>
-                    <label for="nama" class="label-form col-md-5 mb-3">
-                        Nama Pelanggan
-                        <input type="text" name="nama" id="nama" class="form-control">
-                    </label>
-                    <label for="nama" class="label-form col-md-4 mb-3">
-                        No Telp.
-                        <div class="input-group">
-                            <span class="input-group-text">+62</span>
-                            <input type="text" name="tlp" id="telp" class="form-control" maxlength="12">
-                        </div>
-                    </label>
-                </div>
-                <div class="row justify-content-center">
-                    <label for="nama" class="label-form col-md-11 mb-3">
-                        Alamat
-                        <textarea name="alamat" id="alamat" class="form-control" cols=" 30" rows="2"></textarea>
-                    </label>
-                </div>
-                <div class="row justify-content-center d-none" id="pre">
-                    <div class="alert alert-info alert-dismissible show fade col-md-11">
-                        <div class="alert-body">
-                            <button class="close" data-dismiss="alert">
-                                <span>&times;</span>
-                            </button>
-                            <i class="fas fa-exclamation pr-2"></i> Hanya untuk Preorder 1 - 4 Hari.
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card mt-4 pb-5 pt-5">
+                <form action="{{ route('admin.store') }}" method="post" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row justify-content-center">
+                        <label for="bukti" class="label-form col-md-2 mb-3 mt-3">
+                            <img src="{{ asset('assets/img/camera-lg.png') }}" alt="ss" srcset=""
+                                style="width: 90px; height: 80px;" data-bs-toggle="tooltip" data-bs-placement="top"
+                                title="Bukti Pembayaran">
+                            <input type="file" name="bukti" id="bukti" class="d-none">
+                        </label>
+                        <label for="nama" class="label-form col-md-5 mb-3 mt-3">
+                            Nama Pelanggan
+                            <input type="text" name="nama" id="nama" class="form-control">
+                        </label>
+                        <label for="nama" class="label-form col-md-4 mb-3 mt-3">
+                            No Telp.
+                            <div class="input-group">
+                                <span class="input-group-text">+62</span>
+                                <input type="text" name="tlp" id="telp" class="form-control" maxlength="12">
+                            </div>
+                        </label>
+                    </div>
+                    <div class="row justify-content-center">
+                        <label for="nama" class="label-form col-md-11 mb-3">
+                            Alamat
+                            <textarea name="alamat" id="alamat" class="form-control" cols=" 30" rows="2"></textarea>
+                        </label>
+                    </div>
+                    <div class="row justify-content-center d-none" id="pre">
+                        <div class="alert alert-info alert-dismissible show fade col-md-11">
+                            <div class="alert-body">
+                                <button class="close" data-dismiss="alert">
+                                    <span>&times;</span>
+                                </button>
+                                <i class="fas fa-exclamation pr-2"></i> Hanya untuk Preorder 1 - 4 Hari.
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row justify-content-center">
-                    <label for="nama" class="label-form col-md-11 mb-3 lb-1">
-                        Menu
-                        <select name="menu" id="menu" class="form-control">
-                            <option value="plh">Pilih satu</option>
-                            @if (\Carbon\Carbon::now()->format('l') == 'Saturday')
-                                @foreach ($satdim as $item)
-                                    <option value="{{ $item->menu }}">{{ $item->menu }}</option>
+                    <div class="row justify-content-center">
+                        <label for="nama" class="label-form col-md-11 mb-3 lb-1">
+                            Menu
+                            <select name="menu" id="menu" class="form-control">
+                                <option value="plh">Pilih satu</option>
+                                @if (\Carbon\Carbon::now()->format('l') == 'Saturday')
+                                    @foreach ($satdim as $item)
+                                        <option value="{{ $item->menu }}">{{ $item->menu }}</option>
+                                    @endforeach
+                                @else
+                                    @foreach ($menu as $item)
+                                        <option value="{{ $item->menu }}">{{ $item->menu }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </label>
+                        <label for="" class="label-form col-md-4 d-none" id="lb-2">
+                            Plus
+                            <select name="plus" id="plus" class="form-control">
+                                <option>Tidak Pakai</option>
+                                @foreach ($nasi as $item)
+                                    <option value="{{ $item->menu }}">+{{ $item->menu }}</option>
                                 @endforeach
-                            @else
-                                @foreach ($menu as $item)
-                                    <option value="{{ $item->menu }}">{{ $item->menu }}</option>
-                                @endforeach
-                            @endif
-                        </select>
-                    </label>
-                    <label for="" class="label-form col-md-4 d-none" id="lb-2">
-                        Plus
-                        <select name="plus" id="plus" class="form-control">
-                            <option>Tidak Pakai</option>
-                            @foreach ($nasi as $item)
-                                <option value="{{ $item->menu }}">+{{ $item->menu }}</option>
-                            @endforeach
-                        </select>
-                    </label>
-                    <label for="" class="label-form col-md-4 d-none" id="lb-3">
-                        Varian
-                        <select name="varian" id="varian" class="form-control">
-                            <option>Pilih satu</option>
-                            <option value="Wortel">Wortel</option>
-                            <option value="Ayam">Ayam</option>
-                            <option value="Udang">Udang</option>
-                        </select>
-                    </label>
-                </div>
-                <div class="row justify-content-center">
-                    <label for="nama" class="label-form col-md-3 mb-3">
-                        Jumlah
-                        <input type="number" name="qty" id="qty" class="form-control" value="0">
-                    </label>
-                    <label for="" class="label-form col-md-4 mb-3">
-                        Harga / pcs
-                        <div id="hargaw">
-                            <span class="form-control" id="">0</span>
-                            <input type="number" class="d-none" id="harga" name="harga">
-                        </div>
-                    </label>
-                    <label for="" class="label-form col-md-4 mb-3">
-                        Total Harga
-                        <span class="form-control" id="ttl">0</span>
-                        <input type="number" class="d-none" id="total" name="total">
-                    </label>
-                </div>
-                <div class="row justify-content-center mt-3">
-                    <div class="col-md-10"></div>
-                    <button type="submit" class="btn btn-primary col-md-1">Simpan</button>
-                </div>
-            </form>
+                            </select>
+                        </label>
+                        <label for="" class="label-form col-md-4 d-none" id="lb-3">
+                            Varian
+                            <select name="varian" id="varian" class="form-control">
+                                <option>Pilih satu</option>
+                                <option value="Wortel">Wortel</option>
+                                <option value="Ayam">Ayam</option>
+                                <option value="Udang">Udang</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="row justify-content-center">
+                        <label for="nama" class="label-form col-md-3 mb-3">
+                            Jumlah
+                            <input type="number" name="qty" id="qty" class="form-control" value="0">
+                        </label>
+                        <label for="" class="label-form col-md-4 mb-3">
+                            Harga / pcs
+                            <div id="hargaw">
+                                <span class="form-control" id="">0</span>
+                                <input type="number" class="d-none" id="harga" name="harga">
+                            </div>
+                        </label>
+                        <label for="" class="label-form col-md-4 mb-3">
+                            Total Harga
+                            <span class="form-control" id="ttl">0</span>
+                            <input type="number" class="d-none" id="total" name="total">
+                        </label>
+                    </div>
+                    <div class="row justify-content-center mt-3">
+                        <div class="col-md-10"></div>
+                        <button type="submit" class="btn btn-primary col-md-1">Simpan</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 @endsection
 
 @push('script')

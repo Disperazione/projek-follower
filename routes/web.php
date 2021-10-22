@@ -25,6 +25,7 @@ Route::prefix('admin')->group(function () {
     Route::middleware('auth')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');
         Route::get('/order', [AdminController::class, 'order'])->name('admin.order');
+        Route::post('/order/store', [AdminController::class, 'store'])->name('admin.store');
         Route::get('/dataorder', [Admincontroller::class, 'dataorder'])->name('admin.dataorder');
 
         Route::get('/layanan', [AdminController::class, 'layanan'])->name('admin.layanan');
@@ -50,7 +51,7 @@ Route::post('/user/update/{id}', [userController::class, 'update'])->name('user.
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::post('/home/store', [App\Http\Controllers\HomeController::class, 'store'])->name('store');
+// Route::post('/home/store', [App\Http\Controllers\HomeController::class, 'store'])->name('store');
 Route::post('/getHarga', [App\Http\Controllers\HomeController::class, 'getHarga']);
 Route::post('/getPlus', [App\Http\Controllers\HomeController::class, 'getPlus']);
 

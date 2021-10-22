@@ -178,6 +178,9 @@ return [
         // QR Code
         SimpleSoftwareIO\QrCode\QrCodeServiceProvider::class,
 
+        // IziToast
+        LaraIzitoast\LaraIzitoastServiceProvider::class,
+
     ],
 
     /*

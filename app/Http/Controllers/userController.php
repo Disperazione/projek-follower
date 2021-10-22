@@ -131,7 +131,7 @@ class userController extends Controller
         OrderLayanan::find($id)->update([
             'pembayaran' => $request->pembayaran
         ]);
-
+        notify()->success("Pesanan anda sudah kami terima", "Success", "bottomRight");
         return redirect()->route('user.index');
     }
 }

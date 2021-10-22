@@ -24,7 +24,9 @@ class AdminController extends Controller
             OrderLayanan::where('status', 'selesai')->count(),
             OrderLayanan::select('*')->count() + OrderMakanan::select('*')->count(),
             OrderLayanan::select('*')->count(),
-            OrderMakanan::select('*')->count()
+            OrderMakanan::select('*')->count(),
+            OrderMakanan::sum('total_harga') - OrderLayanan::sum('total'),
+            OrderMakanan::sum('total_harga') / OrderMakanan::sum('qty'),
         ];
 
         return view('admin.dashboard', compact('pesanan'));
@@ -41,17 +43,18 @@ class AdminController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
-            'nama' => 'required',
-            'tlp' => 'required',
-            'alamat' => 'required',
-            'email' => 'required',
-            'menu' => 'required',
-            'qty' => 'required',
-            'harga' => 'required',
-            'total_harga' => 'required',
-            'bukti_pembayaran' => 'required'
-        ]);
+        // dd($request);
+        // $request->validate([
+        //     'nama' => 'required',
+        //     'tlp' => 'required',
+        //     'alamat' => 'required',
+        //     // 'email' => 'required',
+        //     // 'menu' => 'required',
+        //     'qty' => 'required',
+        //     'harga' => 'required',
+        //     'total_harga' => 'required',
+        //     // 'bukti_pembayaran' => 'required'
+        // ]);
 
         $menus = '';
         $bktpb = $request->bukti;
@@ -67,7 +70,8 @@ class AdminController extends Controller
             }
         }
         // dd($menus);
-        OrderMakanan::create([
+        // dd([$request, $menus]);
+        $a = OrderMakanan::create([
             'nama' => $request->nama,
             'tlp' => '+62' . $request->tlp,
             'alamat' => $request->alamat,
@@ -78,9 +82,10 @@ class AdminController extends Controller
             'total_harga' => $request->total,
             'bukti_pembayaran' => $namafile
         ]);
+        // dd($a);
         $bktpb->move(public_path() . '/assets/img/bukti', $namafile);
-
-        return redirect()->route('admin.index')->with('status', 'Pesanan berhasil dibuat');
+        notify()->success("Pesanan berhasil dibuat", "Success", "topRight");
+        return redirect()->route('admin.order');
     }
 
     public function getHarga(Request $request)

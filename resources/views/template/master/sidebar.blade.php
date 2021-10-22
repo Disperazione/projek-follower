@@ -6,16 +6,18 @@
             <li><a class="nav-link" href="{{ route('admin.index') }}"><i class="fas fa-fire"></i>
                     <span>Dashboard</span></a></li>
             <li class="menu-header">Master</li>
-            <li><a class="nav-link" href="{{ route('admin.order') }}"><i class="far fa-square"></i>
+            <li><a class="nav-link" href="{{ route('admin.order') }}"><i class="fas fa-shopping-cart"></i>
                     <span>Order</span></a></li>
-            <li><a class="nav-link" href="{{ route('admin.dataorder') }}"><i class="far fa-square"></i>
-                <span>Data Order</span></a></li>
+            <li><a class="nav-link" href="{{ route('admin.dataorder') }}"><i class="fas fa-server"></i>
+                    <span>Data Order</span></a></li>
             <li class="nav-item dropdown">
                 <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-columns"></i>
                     <span>Layanan</span></a>
                 <ul class="dropdown-menu">
-                    <li><a class="nav-link" href="{{ route('admin.layanan') }}">Layanan</a></li>
-                    <li><a class="nav-link" href="{{ route('admin.addLayanan') }}">Tambah Layanan</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.layanan') }}"><i
+                                class="fas fa-bars"></i>Layanan</a></li>
+                    <li><a class="nav-link" href="{{ route('admin.addLayanan') }}"><i
+                                class="fas fa-cart-plus"></i> Tambah Layanan</a></li>
                 </ul>
             </li>
         </ul>
