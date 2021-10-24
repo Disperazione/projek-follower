@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Layanan;
 use App\Models\OrderLayanan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class userController extends Controller
 {
@@ -97,29 +98,35 @@ class userController extends Controller
             'total' => 'required',
         ]);
         // dd($request);
+        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $slug = Str::random(15);
 
         OrderLayanan::create([
             'kategori' => $request->kategori,
             'layanan' => $request->layanan,
             'target' => $request->target,
+            'slug' => Str::slug($slug),
             'jumlah' => $request->jumlah,
             'total' => $request->total,
             'status' => 'pending',
             'pembayaran' => 'belum',
         ]);
 
-        return redirect()->route('user.bayar', ['target' => $request->target]);
+        // dd(Str::slug($request->target) . '-');
+
+
+        return redirect()->route('user.bayar', Str::slug($slug));
     }
 
-    public function bayar($target)
+    public function bayar($pembayaran)
     {
         // $all = OrderLayanan::all();
         // $pembayaran = OrderLayanan::where('target', $target)->latest()->first();
-        // dd($target);
-        if (OrderLayanan::where('target', $target)->first() == Null or OrderLayanan::where('target', $target)->latest()->first()->pembayaran == 'sudah') {
+        // dd($pembayaran);
+        if ($pembayaran != $pembayaran or OrderLayanan::where('slug', $pembayaran)->first() == Null or OrderLayanan::where('slug', $pembayaran)->where('pembayaran', 'sudah')->first()) {
             return view('error');
         } else {
-            $id = OrderLayanan::where('target', $target)->latest()->first();
+            $id = OrderLayanan::where('slug', $pembayaran)->first();
             // dd($id);
             return view('user.bayar', compact('id'));
         }

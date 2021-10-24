@@ -12,6 +12,7 @@ class OrderLayanan extends Model
         'kategori',
         'layanan',
         'target',
+        'slug',
         'jumlah',
         'pembayaran',
         'total',

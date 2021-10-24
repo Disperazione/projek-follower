@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\userController;
+use App\Models\OrderLayanan;
 use Illuminate\Support\Facades\Auth;
 
 /*
@@ -41,7 +42,7 @@ Route::post('/getLG', [userController::class, 'getHarga']);
 Route::post('/getMin', [userController::class, 'getMin']);
 Route::post('/getMax', [userController::class, 'getMax']);
 Route::post('/user/store', [userController::class, 'store'])->name('user.store');
-Route::get('/user/pembayaran/{target}', [UserController::class, 'bayar'])->name('user.bayar');
+Route::get('/user/pembayaran/{pembayaran:slug}', [UserController::class, 'bayar'])->name('user.bayar');
 Route::post('/user/update/{id}', [userController::class, 'update'])->name('user.update');
 
 // Route::group(['prefix' => 'admin'], function () {

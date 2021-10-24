@@ -18,6 +18,7 @@ class CreateOrderLayanansTable extends Migration
             $table->string('kategori');
             $table->text('layanan');
             $table->text('target');
+            $table->text('slug');
             $table->integer('jumlah');
             $table->integer('total');
             $table->enum('status', ['pending', 'proses', 'selesai']);

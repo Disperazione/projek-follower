@@ -27,6 +27,7 @@ class AdminController extends Controller
             OrderMakanan::select('*')->count(),
             OrderMakanan::sum('total_harga') - OrderLayanan::sum('total'),
             OrderMakanan::sum('total_harga') / OrderMakanan::sum('qty'),
+            OrderLayanan::where('pembayaran', 'sudah')->sum('total'),
         ];
 
         return view('admin.dashboard', compact('pesanan'));
