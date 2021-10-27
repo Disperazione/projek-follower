@@ -193,110 +193,112 @@
             max-width: 65em;
         }
 
+        img{
+ 
+}
+input[type=file]{
+padding:10px;}
     </style>
 </head>
 
 <body>
     {{-- qr --}}
     <h2 class="text-center pt-3"> <u> Pembayaran</u></h2>
-    <div class="card">
-        <div class="tabset">
-            <!-- Tab 1 -->
-            <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked>
-            <label style="margin-left: 10%" for="tab1">Dana</label>
-            <!-- Tab 2 -->
-            <input type="radio" name="tabset" id="tab2" aria-controls="rauchbier">
-            <label style="margin-left: 10%" for="tab2">Gopay</label>
-            <!-- Tab 3 -->
-            <input type="radio" name="tabset" id="tab3" aria-controls="dunkles">
-            <label style="margin-left: 10%" for="tab3">OVO</label>
-
-            <div class="tab-panels">
-                <section id="marzen" class="tab-panel">
-                    <div class="dana">
-                        <div class="card-nama">
-                            <div class="alert alert-warning">
-                                <i class="fas fa-exclamation-circle pe-2"></i> Harap memberi keterangan saat transfer
+            <div class="card">
+                <div class="tabset">
+                    <!-- Tab 1 -->
+                    <input type="radio" name="tabset" id="tab1" aria-controls="marzen" checked>
+                    <label style="margin-left: 10%" for="tab1">Dana</label>
+                    <!-- Tab 2 -->
+                    <input type="radio" name="tabset" id="tab2" aria-controls="rauchbier">
+                    <label style="margin-left: 10%" for="tab2">Gopay</label>
+                    <!-- Tab 3 -->
+                    <input type="radio" name="tabset" id="tab3" aria-controls="dunkles">
+                    <label style="margin-left: 10%" for="tab3">OVO</label>
+        
+                    <div class="tab-panels">
+                        <section id="marzen" class="tab-panel">
+                            <div class="dana">
+                                <div class="card-nama">
+                                    <div class="alert alert-warning">
+                                        <i class="fas fa-exclamation-circle pe-2"></i> Harap memberi keterangan saat transfer
+                                    </div>
+                                    <h4 class="text-center"><b>SINGULAR</b> </h4>
+                                    <h5 class="text-center">Scan QR Dengan Dana</h5>
+        
+                                </div>
+                                <div class="card-image text-center">
+                                    <div class="justify-content-center p-3">
+                                        {!! QrCode::size(270)->generate('https://link.dana.id/qr/4v9gfe27') !!}
+                                    </div>
+                                </div>
+                               
                             </div>
-                            <h4 class="text-center"><b>SINGULAR</b> </h4>
-                            <h5 class="text-center">Scan QR Dengan Dana</h5>
-
-                        </div>
-                        <div class="card-image text-center">
-                            <div class="justify-content-center p-3">
-                                {!! QrCode::size(270)->generate('https://link.dana.id/qr/4v9gfe27') !!}
+                        </section>
+                        <section id="rauchbier" class="tab-panel">
+                            <div class="Gopay">
+                                <div class="card-nama">
+                                    <div class="alert alert-warning">
+                                        <i class="fas fa-exclamation-circle pe-2"></i> Harap memberi keterangan saat transfer
+                                    </div>
+                                    <h4 class="text-center"><b>SINGULAR</b> </h4>
+                                    <h5 class="text-center">Scan QR Dengan Gopay</h5>
+        
+                                </div>
+                                <div class="card-image text-center">
+                                    <div class="justify-content-center p-3">
+                                        {!! QrCode::size(270)->generate('{"qr_id":"ab35440b-00ef-4b62-a4dc-9b202717a09d"}') !!}
+                                    </div>
+                                </div>
+                                
                             </div>
+                        </section>
+                        <section id="dunkles" class="tab-panel">
+                            <div class="OVO">
+                                <div class="card-nama">
+                                    <div class="alert alert-warning">
+                                        <i class="fas fa-exclamation-circle pe-2"></i> Harap memberi keterangan saat transfer
+                                    </div>
+                                    <h4 class="text-center"><b>SINGULAR</b> </h4>
+                                    <h5 class="text-center">Scan QR Dengan OVO</h5>
+        
+                                </div>
+                                <div class="card-image text-center">
+                                    <div class="justify-content-center p-3">
+                                        {!! QrCode::size(270)->generate('085890058280#Erraldo%20Daniel%20S') !!}
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </section>
+                    </div>
+                    <div class="bukti">
+                        <div class="card">
+                        <div class="alert alert-warning">
+                            <i class="fas fa-exclamation-circle pe-2"></i> Harap Upload Bukti Pembayaran
                         </div>
-                        <div class="button position-relative pt-4">
-                            <form action="{{ route('user.update', [$id->id]) }}" method="post">
-                                @csrf
-                                {{-- {{ dd($id->id) }} --}}
-                                <input type="text" class="d-none" value="sudah" name="pembayaran">
-                                {{-- <input type="text" class="d-none" value="proses" name="status"> --}}
-                                <button class="btn btn-success mt-4 position-relative  start-50 translate-middle"
-                                    type="submit">Selesai</button>
-                            </form>
+                        <img id="blah" src="http://placehold.it/180" alt="your image" />
+                        <input type='file' onchange="readURL(this);" />
                         </div>
                     </div>
-                </section>
-                <section id="rauchbier" class="tab-panel">
-                    <div class="Gopay">
-                        <div class="card-nama">
-                            <div class="alert alert-warning">
-                                <i class="fas fa-exclamation-circle pe-2"></i> Harap memberi keterangan saat transfer
-                            </div>
-                            <h4 class="text-center"><b>SINGULAR</b> </h4>
-                            <h5 class="text-center">Scan QR Dengan Gopay</h5>
-
-                        </div>
-                        <div class="card-image text-center">
-                            <div class="justify-content-center p-3">
-                                {!! QrCode::size(270)->generate('{"qr_id":"ab35440b-00ef-4b62-a4dc-9b202717a09d"}') !!}
-                            </div>
-                        </div>
-                        <div class="button position-relative pt-4">
-                            <form action="{{ route('user.update', [$id->id]) }}" method="post">
-                                @csrf
-                                {{-- {{ dd($id->id) }} --}}
-                                <input type="text" class="d-none" value="sudah" name="pembayaran">
-                                {{-- <input type="text" class="d-none" value="proses" name="status"> --}}
-                                <button class="btn btn-success mt-4 position-relative  start-50 translate-middle"
-                                    type="submit">Selesai</button>
-                            </form>
-                        </div>
+                    <div class="button position-relative pt-4">
+                        <form action="{{ route('user.update', [$id->id]) }}" method="post">
+                            @csrf
+                            {{-- {{ dd($id->id) }} --}}
+                            <input type="text" class="d-none" value="sudah" name="pembayaran">
+                            {{-- <input type="text" class="d-none" value="proses" name="status"> --}}
+                            <button class="btn btn-success mt-1 position-relative  start-50 translate-middle"
+                                type="submit">Selesai</button>
+                        </form>
                     </div>
-                </section>
-                <section id="dunkles" class="tab-panel">
-                    <div class="OVO">
-                        <div class="card-nama">
-                            <div class="alert alert-warning">
-                                <i class="fas fa-exclamation-circle pe-2"></i> Harap memberi keterangan saat transfer
-                            </div>
-                            <h4 class="text-center"><b>SINGULAR</b> </h4>
-                            <h5 class="text-center">Scan QR Dengan OVO</h5>
-
-                        </div>
-                        <div class="card-image text-center">
-                            <div class="justify-content-center p-3">
-                                {!! QrCode::size(270)->generate('085890058280#Erraldo%20Daniel%20S') !!}
-                            </div>
-                        </div>
-                        <div class="button position-relative pt-4">
-                            <form action="{{ route('user.update', [$id->id]) }}" method="post">
-                                @csrf
-                                {{-- {{ dd($id->id) }} --}}
-                                <input type="text" class="d-none" value="sudah" name="pembayaran">
-                                {{-- <input type="text" class="d-none" value="proses" name="status"> --}}
-                                <button class="btn btn-success mt-4 position-relative  start-50 translate-middle"
-                                    type="submit">Selesai</button>
-                            </form>
-                        </div>
-                    </div>
-                </section>
+                </div>
             </div>
-
+        
+         <div class="col-4">
+            
         </div>
-    </div>
+    
+    
     {{-- tutup --}}
 
 
@@ -365,7 +367,20 @@
     <script src="js/wow.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>   
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
 
+            reader.onload = function (e) {
+                $('#blah')
+                    .attr('src', e.target.result);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    </script>
     <!--
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">

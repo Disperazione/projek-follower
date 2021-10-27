@@ -32,6 +32,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/layanan', [AdminController::class, 'layanan'])->name('admin.layanan');
         Route::get('/addlayanan', [AdminController::class, 'addLayanan'])->name('admin.addLayanan');
         Route::post('/getStatus', [AdminController::class, 'getStatus']);
+
+        Route::get('/regisuser', [Admincontroller::class, 'regisUser'])->name('admin.regis');
+        Route::get('/adduser', [Admincontroller::class, 'addUser'])->name('admin.adduser');
     });
 });
 

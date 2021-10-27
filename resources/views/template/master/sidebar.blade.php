@@ -20,6 +20,8 @@
                                 class="fas fa-cart-plus"></i> Tambah Layanan</a></li>
                 </ul>
             </li>
+            <li><a class="nav-link" href="{{ route('admin.regis') }}"><i class="fas fa-server"></i>
+                <span>Registrasi User</span></a></li>
         </ul>
     </aside>
 </div>

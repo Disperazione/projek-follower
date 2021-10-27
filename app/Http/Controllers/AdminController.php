@@ -177,4 +177,13 @@ class AdminController extends Controller
 
         return $html;
     }
+
+    public function regisUser()
+    {
+        return view ('admin.regis.regisuser');
+    }
+    public function addUSer()
+    {
+        return view ('admin.regis.adduser');
+    }
 }
