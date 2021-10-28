@@ -6,7 +6,9 @@ use App\Models\Layanan;
 use App\Models\Menu;
 use App\Models\OrderLayanan;
 use App\Models\OrderMakanan;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -180,10 +182,36 @@ class AdminController extends Controller
 
     public function regisUser()
     {
-        return view ('admin.regis.regisuser');
+        $user = User::where('role', 'user')->get();
+        // dd($user);
+        return view('admin.regis.regisuser', compact('user'));
     }
+
     public function addUSer()
     {
-        return view ('admin.regis.adduser');
+        return view('admin.regis.adduser');
+    }
+
+    public function storeUser(Request $request)
+    {
+        $request->validate([
+            'username' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        User::create([
+            'name' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'user',
+        ]);
+        notify()->success("Berhasil registrasi", "Success", "bottomRight");
+        return redirect()->route('admin.regis');
+    }
+
+    public function singular($singular)
+    {
+        return view('admin.layanan.detail');
     }
 }

@@ -107,7 +107,8 @@
                                             <input type="hidden" name="" id="{{ +$id }}hides"
                                                 value="{{ $item->status }}">
                                         </td>
-                                        <td><a href="#" class="btn btn-secondary">Detail</a></td>
+                                        <td><a href="{{ route('admin.dataorder.singular', $item->slug) }}"
+                                                class="btn btn-secondary">Detail</a></td>
                                     </tr>
                                 @endforeach
 

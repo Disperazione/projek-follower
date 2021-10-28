@@ -147,7 +147,12 @@
                     <div class="card-body">
                         <div class="row justify-content-center">
                             <div class="mt-4 pb-5">
-                                <form action="{{ route('user.store') }}" method="post" enctype="">
+                                @if ($errors->any())
+                                    @php
+                                        notify()->error('Operasi Illegal', 'Error', 'topCenter');
+                                    @endphp
+                                @endif
+                                <form action="{{ route('user.store') }}" method="post" enctype="" id="form">
                                     @csrf
                                     <div class="alert alert-warning col-12" role="alert">
                                         <i class="fas fa-exclamation-triangle mr-2"></i>
@@ -224,10 +229,11 @@
                                             <input type="number" class="d-none" id="total" name="total">
                                         </label>
                                     </div>
-                                    <div class="row mt-3">
-                                        <button type="submit" class="btn btn-success col-md-2">Submit</button>
-                                    </div>
                                 </form>
+                                <div class="row mt-3">
+                                    <button type="button" class="btn btn-success col-md-2"
+                                        onclick="valid()">Submit</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -438,6 +444,43 @@
             $('#ttl').html(new Intl.NumberFormat().format(b * a));
             $('#total').val(b * a);
         });
+
+        function valid() {
+            let a = $('#jumlah').val();
+            let b = $('#cd').val();
+            let c = $('#de').val();
+            // if (a == 500) {
+            //     document.getElementById("form").submit();
+            // } else if (a < b || a > c) {
+            //     iziToast.error({
+            //         title: 'Error',
+            //         message: 'Operasi ilegal',
+            //         position: 'topCenter',
+            //     });
+            // } else {
+            //     document.getElementById("form").submit();
+            // }
+            switch (a) {
+                case a < b:
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Operasi ilegal',
+                        position: 'topCenter',
+                    });
+                    break;
+                case a > c:
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Operasi ilegal',
+                        position: 'topCenter',
+                    });
+                    break;
+
+                default:
+                    document.getElementById("form").submit();
+                    break;
+            }
+        }
     </script>
     <script src="{{ asset('assets/js/jquery.animateTyping.js') }}"></script>
     <!--

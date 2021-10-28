@@ -98,7 +98,6 @@ class userController extends Controller
             'total' => 'required',
         ]);
         // dd($request);
-        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $slug = Str::random(15);
 
         OrderLayanan::create([
@@ -135,10 +134,17 @@ class userController extends Controller
     public function update(Request $request, $id)
     {
         // dd($id);
-        OrderLayanan::find($id)->update([
-            'pembayaran' => $request->pembayaran
+        $request->validate([
+            'bukti' => 'required',
         ]);
-        notify()->success("Pesanan anda sudah kami terima", "Success", "bottomRight");
+        $nm = $request->bukti;
+        $namafile = time() . rand(100, 999) . "." . $nm->getClientOriginalExtension();
+        OrderLayanan::find($id)->update([
+            'pembayaran' => $request->pembayaran,
+            'bukti' => $namafile,
+        ]);
+        $nm->move(public_path() . '/asstets/img/bukti', $namafile);
+        notify()->success("Pesanan anda sudah kami terima", "Success", "topCenter");
         return redirect()->route('user.index');
     }
 }

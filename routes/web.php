@@ -27,7 +27,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');
         Route::get('/order', [AdminController::class, 'order'])->name('admin.order');
         Route::post('/order/store', [AdminController::class, 'store'])->name('admin.store');
+
         Route::get('/dataorder', [Admincontroller::class, 'dataorder'])->name('admin.dataorder');
+        Route::get('/dataorder/detail-singular/{singular:slug}', [Admincontroller::class, 'singular'])->name('admin.dataorder.singular');
 
         Route::get('/layanan', [AdminController::class, 'layanan'])->name('admin.layanan');
         Route::get('/addlayanan', [AdminController::class, 'addLayanan'])->name('admin.addLayanan');
@@ -35,6 +37,7 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/regisuser', [Admincontroller::class, 'regisUser'])->name('admin.regis');
         Route::get('/adduser', [Admincontroller::class, 'addUser'])->name('admin.adduser');
+        Route::post('/adduser/store', [Admincontroller::class, 'storeUser'])->name('admin.adduser.store');
     });
 });
 

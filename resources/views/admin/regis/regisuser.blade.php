@@ -11,36 +11,36 @@
     <div class="breadcrumb-item">Data Registrasi</div>
 @endsection
 @section('main')
-<div class="card">
-    <div class="card-header">
-        <h4>Data Registrasi</h4>
-    </div>
-    <div class="card-body">
-        <div class="table-responsive">
-            <a href="{{ route('admin.adduser') }}" class="btn btn-primary mb-2">Tambah</a>
-            <table class="table table-striped" id="table-1">
-                <thead class="text-center">
-                    <tr>
-                        <th>No</th>
-                        <th>Email</th>
-                        <th>Username</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                   
-                        <tr class="text-center">
-                            <td>1</td>
-                            <td>admin@gmail.com</td>
-                            <td>Yasir</td>
-                            <td><a href="#" class="btn btn-secondary">Detail</a></td>
+    <div class="card">
+        <div class="card-header">
+            <h4>Data Registrasi</h4>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <a href="{{ route('admin.adduser') }}" class="btn btn-primary mb-4">Tambah</a>
+                <table class="table table-striped" id="table-1">
+                    <thead class="text-center">
+                        <tr>
+                            <th>No</th>
+                            <th>Email</th>
+                            <th>Username</th>
+                            <th>Action</th>
                         </tr>
-            
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($user as $id => $item)
+                            <tr class="text-center">
+                                <td>{{ ++$id }}</td>
+                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->email }}</td>
+                                <td><a href="#" class="btn btn-secondary">Detail</a></td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
 @endsection
 
 @push('script')
