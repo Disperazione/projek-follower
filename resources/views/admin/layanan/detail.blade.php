@@ -12,7 +12,55 @@
     <div class="breadcrumb-item">Detail</div>
 @endsection
 @section('main')
-
+<div class="d-flex justify-content-center">
+    <div class="card col-8">
+        <div class="card-header">
+            <h4>Detail Layanan</h4>
+        </div>
+        <div class="card-body">
+            <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-3 col-form-label">Kategori</label>
+                <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
+                <label for="staticEmail" class="col-sm-8 col-form-label">Instagram</label>
+            </div>
+            <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-3 col-form-label">Layanan</label>
+                <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
+                <label for="staticEmail" class="col-sm-8 col-form-label">Followers</label>
+            </div>
+            <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-3 col-form-label">Harga/1000</label>
+                <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
+                <label for="staticEmail" class="col-sm-8 col-form-label">40,000</label>
+            </div>
+            <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-3 col-form-label">Min.Pesanan</label>
+                <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
+                <label for="staticEmail" class="col-sm-8 col-form-label">100</label>
+            </div>
+            <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-3 col-form-label">Max.Pesanan</label>
+                <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
+                <label for="staticEmail" class="col-sm-8 col-form-label">3.000</label>
+            </div>
+            <div class="mb-3 row">
+                <label for="staticEmail" class="col-sm-3 col-form-label">Deskripsi</label>
+                <label for="staticEmail" class="col-sm-1 col-form-label">:</label>
+                <label for="staticEmail" class="col-sm-8 col-form-label">
+                    <ul>
+                        <li>masukan target username instagram tanpa @</li>
+                        <li>max db 2000</li>
+                        <li>on layanan 6:00 WIB - 21:00 WIB</li>
+                        <li>proses 24 - 48 jam</li>
+                    </ul>
+                </label>
+            </div>
+            <div class="card-footer" style="margin-top: -30px; margin-left: -28px;">
+                <a class="btn btn-primary" href="#" role="button"><i class="fas fa-arrow-circle-left me-3"></i> Kembali</a>
+            </div>
+        </div>
+    </div>
+</div>
 @endsection
 
 @push('script')

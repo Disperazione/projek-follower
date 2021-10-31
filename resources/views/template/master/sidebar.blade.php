@@ -1,3 +1,4 @@
+{{-- @extends('template.master') --}}
 <div class="main-sidebar">
     <aside id="sidebar-wrapper" style="width: 180px;">
         <div class="sidebar-brand sidebar-gone-show"><a href="index.html">Stisla</a></div>

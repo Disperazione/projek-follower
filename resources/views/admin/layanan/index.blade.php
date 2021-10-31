@@ -11,49 +11,45 @@
     <div class="breadcrumb-item">Layanan</div>
 @endsection
 @section('main')
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4>Data Layanan</h4>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table class="table table-striped" id="table-1">
-                            <thead class="text-center">
-                                <tr>
-                                    <th class="text-center">ID</th>
-                                    <th>Kategori</th>
-                                    <th>Layanan</th>
-                                    <th>Harga/1000</th>
-                                    <th>Min.Pesan</th>
-                                    <th>Maks.Pesan</th>
-                                    <th>Deskripsi</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($data as $item)
-                                    <tr>
-                                        <td>{{ $item->id }}</td>
-                                        <td>{{ $item->kategori }}</td>
-                                        <td>{{ $item->layanan }}</td>
-                                        <td>{{ number_format($item->hargaperk) }}</td>
-                                        <td>{{ number_format($item->minimal) }}</td>
-                                        <td>{{ number_format($item->maks) }}</td>
-                                        <td>
-                                            {!! $item->desklay !!}
-                                        </td>
-                                        <td><a href="#" class="btn btn-secondary">Detail</a></td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+<div class="card">
+    <div class="card-header">
+        <h4>Data Layanan</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped" id="table-1">
+                <thead class="text-center">
+                    <tr>
+                        <th class="text-center">ID</th>
+                        <th>Kategori</th>
+                        <th>Layanan</th>
+                        <th>Harga/1000</th>
+                        <th>Min.Pesan</th>
+                        <th>Maks.Pesan</th>
+                        <th>Deskripsi</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($data as $item)
+                        <tr>
+                            <td>{{ $item->id }}</td>
+                            <td>{{ $item->kategori }}</td>
+                            <td>{{ $item->layanan }}</td>
+                            <td>{{ number_format($item->hargaperk) }}</td>
+                            <td>{{ number_format($item->minimal) }}</td>
+                            <td>{{ number_format($item->maks) }}</td>
+                            <td>
+                                {!! $item->desklay !!}
+                            </td>
+                            <td><a href="/detail" class="btn btn-secondary">Detail</a></td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
+</div>
 @endsection
 
 @push('script')

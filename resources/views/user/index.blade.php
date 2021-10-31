@@ -39,6 +39,12 @@
         .info-text {
             font-size: 13px;
         }
+        .card-pill{
+            border-radius: 16px;
+        }
+        .iconbox{
+            margin: 0px auto;
+        }
 
     </style>
 </head>
@@ -82,21 +88,98 @@
             <div class="row">
                 <div class="col-lg-7 mx-auto text-center">
                     <h1 class="display-4 text-white">Tambah Followers Anda Sekarang</h1>
-                    <span class="animate-typing text-white fs-4" data-animate-loop="true" data-type-speed="200"
+                    <span class="animate-typing text-white fs-2" data-animate-loop="true" data-type-speed="200"
                         data-type-delay="200" data-remove-delay="2000">
                         Layanan Cepat|
                         Pembayaran Praktis|
                         Harga Terjangkau
                     </span>
                     <p class="text-white my-3"></p>
-                    <a href="#" class="btn me-2 btn-primary mt-3">Get Started</a>
+                    <a href="/login" class="btn me-2 btn-primary mt-3">
+                        <h6 class="text-light" style="padding-top: 6px;">
+                            <i class="fas fa-sign-in-alt me-3"></i>Log In.
+                        </h6>
+                    </a>
+                    <a href="#" class="btn me-2 btn-info mt-3">
+                        <h6 class="text-light" style="padding-top: 6px;">
+                            <i class="fas fa-sign-in-alt me-3"></i>Register.
+                        </h6>
+                    </a>
                 </div>
             </div>
         </div>
     </div><!-- //HERO -->
 
+    <section id="" style="margin-top: -170px;">
+        <div class="container">
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-9 col-sm-6">
+                    <div class="service card-effect card-pill row text-center">
+                        <div class="col-4">
+                            <h3 class="mt-2 mb-2">105+</h3>
+                            {{-- <p>{{ $data->count() }}</p> --}}
+                            <h5 class="text-secondary">Jumlah User Deposit</h5>
+                        </div>
+                        <div class="col-4">
+                            <h3 class="mt-2 mb-2">105+</h3>
+                            {{-- <p>{{ $data->count() }}</p> --}}
+                            <h5 class="text-secondary">Pengguna Aktif</h5>
+                        </div>
+                        <div class="col-4">
+                            <h3 class="mt-2 mb-2">105+</h3>
+                            {{-- <p>{{ $data->count() }}</p> --}}
+                            <h5 class="text-secondary">Pesanan Dikerjakan</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- SERVICES -->
-    <section id="services">
+    <section id="services" style="margin-top: -100px;">
+        <div class="">
+            <div class="col-lg-12 col-sm-6 row text-center" style="margin: 0px auto;">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="card-effect" style="border-radius: 15px;">
+                        <div class="iconbox">
+                            <i class="far fa-gem"></i>
+                        </div>
+                        <h5 class="mt-4 mb-2">Kualitas Pelayanan</h5>
+                        <h6 class="text-secondary">Kami menyediakan berbagai layanan terbaik dan berkualitas untuk
+                            menaikkan peringkat social media Anda.</h6>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="card-effect" style="border-radius: 15px;">
+                        <div class="iconbox">
+                            <i class="far fa-life-ring"></i>
+                        </div>
+                        <h5 class="mt-4 mb-2">Pelayanan Bantuan</h5>
+                        <h6 class="text-secondary">Kami siap membantu Anda jika Anda mengalami kesulitan atau
+                            tidak mengerti terkait layanan yang kami sediakan.</h6>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="card-effect" style="border-radius: 15px;">
+                        <div class="iconbox">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h5 class="mt-4 mb-2">Kenyamanan Desain</h5>
+                        <h6 class="text-secondary">Website kami dapat diakses melalui berbagai device/perangkat
+                            baik PC, tablet, maupun mobile phone.</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- SERVICES -->
+
+
+
+
+    <!-- SERVICES -->
+    {{-- <section id="services" style="margin-top: -100px;">
         <div class="container">
             <div class="row mb-5">
                 <div class="col-md-8 mx-auto text-center">
@@ -111,7 +194,7 @@
                             <i class='bx bxs-user'></i>
                         </div>
                         <h5 class="mt-4 mb-2">Pelanggan</h5>
-                        {{-- <p>{{ $datas->where('pembayaran', 'sudah')->count() }}</p> --}}
+                        <p>{{ $datas->where('pembayaran', 'sudah')->count() }}</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-6">
@@ -120,7 +203,7 @@
                             <i class='bx bxs-rocket'></i>
                         </div>
                         <h5 class="mt-4 mb-2">Jumlah Pesanan</h5>
-                        {{-- <p>{{ $datas->where('status', 'selesai')->count() }}</p> --}}
+                        <p>{{ $datas->where('status', 'selesai')->count() }}</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-sm-6">
@@ -129,12 +212,13 @@
                             <i class='bx bxs-cog'></i>
                         </div>
                         <h5 class="mt-4 mb-2">Layanan</h5>
-                        {{-- <p>{{ $data->count() }}</p> --}}
+                        <p>{{ $data->count() }}</p>
                     </div>
                 </div>
             </div>
         </div>
-    </section><!-- SERVICES -->
+    </section> --}}
+    <!-- SERVICES -->
 
     {{-- ORDER --}}
     <section id="contact">
