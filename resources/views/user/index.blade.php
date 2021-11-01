@@ -100,7 +100,7 @@
                             <i class="fas fa-sign-in-alt me-3"></i>Log In.
                         </h6>
                     </a>
-                    <a href="#" class="btn me-2 btn-info mt-3">
+                    <a href="/register" class="btn me-2 btn-info mt-3">
                         <h6 class="text-light" style="padding-top: 6px;">
                             <i class="fas fa-sign-in-alt me-3"></i>Register.
                         </h6>
