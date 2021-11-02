@@ -18,5 +18,6 @@ class OrderLayanan extends Model
         'pembayaran',
         'total',
         'status',
+        'tgl'
     ];
 }

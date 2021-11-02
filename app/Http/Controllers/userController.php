@@ -109,6 +109,7 @@ class userController extends Controller
             'total' => $request->total,
             'status' => 'pending',
             'pembayaran' => 'belum',
+            'tgl' => date("Y-m-d"),
         ]);
 
         // dd(Str::slug($request->target) . '-');

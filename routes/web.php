@@ -38,6 +38,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/regisuser', [Admincontroller::class, 'regisUser'])->name('admin.regis');
         Route::get('/adduser', [Admincontroller::class, 'addUser'])->name('admin.adduser');
         Route::post('/adduser/store', [Admincontroller::class, 'storeUser'])->name('admin.adduser.store');
+        Route::get('/laporan/makanan', [Admincontroller::class, 'laporanmakanan'])->name('admin.laporan.makanan');
+        Route::get('/laporan/followers', [Admincontroller::class, 'laporanfollowers'])->name('admin.laporan.followers');
+        
     });
 });
 

@@ -28,6 +28,10 @@
                 </li>
                 <li><a class="nav-link" href="{{ route('admin.regis') }}"><i class="fas fa-server"></i>
                         <span>Registrasi User</span></a></li>
+                <li><a class="nav-link" href="{{ route('admin.laporan.makanan') }}"><i class="fas fa-file"></i>
+                        <span>Laporan Makanan</span></a></li>
+                <li><a class="nav-link" href="{{ route('admin.laporan.followers') }}"><i class="fas fa-file"></i>
+                        <span>Laporan Followers</span></a></li>
             @endif
 
             @if (Auth::user()->role == 'user')

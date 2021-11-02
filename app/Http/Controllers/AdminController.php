@@ -7,8 +7,10 @@ use App\Models\Menu;
 use App\Models\OrderLayanan;
 use App\Models\OrderMakanan;
 use App\Models\User;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -213,5 +215,33 @@ class AdminController extends Controller
     public function singular($singular)
     {
         return view('admin.layanan.detail');
+    }
+
+    public function laporanmakanan()
+    {
+        // $ordermakanan = orderMakanan::select(
+        //     DB::raw('count(id) as `jumlahsiswa`'),
+        //     DB::raw('sum(qty) as `qty`'),
+        //     DB::raw('sum(total_harga) as `total`'),
+        //     DB::raw("DATE_FORMAT(tgl, '%Y-%m-%d') as tgl")
+        // )
+        //     ->groupBy('tgl')->orderBy('tgl')->get();
+        // $siswa = orderMakanan::count('id');
+        // $qty = OrderMakanan::sum('qty');    
+        // $total = orderMakanan::sum('total_harga');
+        $ordermakanan = orderMakanan::all();
+        return View('admin.laporan.makanan', compact('ordermakanan'));
+    }
+
+    public function laporanfollowers()
+    {
+        $order = OrderLayanan::select(
+            DB::raw('count(id) as `jumlah`'),
+            DB::raw('sum(total) as `total`'),
+            DB::raw("DATE_FORMAT(tgl, '%Y-%m-%d') as tgl")
+        )
+            ->groupBy('tgl')->orderBy('tgl')->get();  
+        
+        return View('admin.laporan.followers',compact('order'));
     }
 }
