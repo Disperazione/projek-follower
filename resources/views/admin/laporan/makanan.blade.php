@@ -1,7 +1,8 @@
 @extends('template.master')
 @push('link')
     <link rel="stylesheet" href="{{ asset('assets/node-modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/node-modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
+    <link rel="stylesheet"
+        href="{{ asset('assets/node-modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
 @endpush
 @section('title', 'TOP ONE PANEL | LAPORAN')
 @section('judul', 'LAPORAN')
@@ -12,47 +13,50 @@
     {{-- laporan makanan --}}
     <div class="section-body">
         <div class="row">
-          <div class="col-12">
-            <div class="card">
-              <div class="card-header">
-                <h4>Laporan/Bulan food.strap</h4>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <table class="table table-striped " id="table-1">
-                    <thead class="text-center">
-                      <tr>
-                        <th>#</th>
-                        <th>Kode Transaksi</th>
-                        <th>Nama Siswa</th>
-                        <th>Customer</th>
-                        <th>Pesanan</th>
-                        <th>Jumlah Pesan</th>
-                        <th>Total Harga</th>
-                        <th>Action</th>
-                       </tr>
-                    </thead>
-                    <tbody>
-                      @foreach ($ordermakanan as $item)
-                          <tr>
-                            <td class="text-center">{{ $loop->iteration }}</td>
-                            <td class="text-center">1920{{ $item->id }}</td>
-                            <td>{{ $item->nama }}</td>
-                            <td>{{ $item->nama }}</td>
-                            <td class="text-center">{{ $item->menu }}</td>
-                            <td class="text-center">{{ $item->qty }}</td>
-                            <td class="text-center">Rp. {{ number_format($item->total_harga) }}</td>
-                            <td class="text-center" >
-                              {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>Laporan/Bulan food.strap</h4>
+                    </div>
+                    <div class="card-body">
+                        <a href="{{ route('admin.export') }}" class="btn btn-success mb-3 bg-success"><i class="fas fa-file-excel"></i> Export Excel</a>
+                        <div class="table-responsive">
+                            <table class="table table-striped " id="table-1">
+                                <thead class="text-center">
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Kode Transaksi</th>
+                                        <th>Nama Siswa</th>
+                                        <th>Customer</th>
+                                        <th>Pesanan</th>
+                                        <th>Jumlah Pesan</th>
+                                        <th>Total Harga</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($ordermakanan as $item)
+                                        <tr>
+                                            <td class="text-center">{{ $loop->iteration }}</td>
+                                            <td class="text-center">1920{{ $item->id }}</td>
+                                            <td>{{ $item->nama }}</td>
+                                            <td>{{ $item->nama }}</td>
+                                            <td class="text-center">{{ $item->menu }}</td>
+                                            <td class="text-center">{{ $item->qty }}</td>
+                                            <td class="text-center">Rp. {{ number_format($item->total_harga) }}</td>
+                                            <td class="text-center">
+                                                {{-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                                 Detail
                               </button> --}}
-                              <a href="" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Detail</a>
-                              
-                            </td>
-                          </tr>
-                      @endforeach
-                      
-                      {{-- <tr>
+                                                <a href="" class="btn btn-primary detail" data-toggle="modal"
+                                                    data-target="#exampleModal" data-detail="{{ $item->id }}">
+                                                    Detail</a>
+
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
+                                    {{-- <tr>
                         @for ($i = 0; $i < count($ordermakanan); $i++)
                             <tr>
                             <td class="text-center">{{ $i+1 }}</td>
@@ -64,18 +68,18 @@
                             </tr>
                         @endfor
                       </tr> --}}
-                      {{-- <tr class="bg-light text-center">
+                                    {{-- <tr class="bg-light text-center">
                         <td colspan="2" >Total</td>
                         <td>{{ $siswa}}</td>
                         <td>{{ $qty}}</td>
                         <td>Rp. {{ number_format($total)}}</td>
                       </tr> --}}
-                    </tbody>
-                  </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
-              </div>
             </div>
-          </div>
         </div>
     </div>
 
@@ -89,75 +93,101 @@
     <script src="{{ asset('assets/node-modules/datatables/media/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('assets/node-modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}"></script>
     <script src="{{ asset('assets/node-modules/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
-    <script src="{{asset('assets/js/page/modules-datatables.js')}}"></script>
+    <script src="{{ asset('assets/js/page/modules-datatables.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.detail').click(function() {
+                let a = $(this).attr('data-detail');
+                // console.log(a);
+                $.ajax({
+                    url: 'getDetail/' + a,
+                    type: 'get',
+                    success: function(result) {
+                        // console.log(result['bukti_pembayaran']);
+                        $('#exampleModalLabel').html(result['nama']);
+                        $('#kotra').html(': 1920' + result['id']);
+                        $('#customer').html(': ' + result['nama']);
+                        $('#pesan').html(': ' + result['menu']);
+                        $('#jumlah').html(result['jumlah']);
+                        $('#total').html(': ' + result['total_harga']);
+                        $('#tgl').html(': ' + result['created_at']);
+                        $('#alamat').html(': ' + result['alamat']);
+                        $('#bukti').attr('src', 'http://127.0.0.1:8000/assets/img/bukti/' +
+                            result['bukti_pembayaran']);
+                    },
+                })
+            });
+        });
+    </script>
 
     {{-- @include('admin.brain.laba') --}}
 @endpush
 
-    <!-- Modal -->
+<!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title border-bottom" id="exampleModalLabel">Nama Siswa</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-4">
-            Kode Transaksi  
-          </div>
-          <div class="col-8">
-            : 1920100 
-          </div>
-          <div class="col-4">
-            Customer  
-          </div>
-          <div class="col-8">
-            : saifudin
-          </div>
-          <div class="col-4">
-            Pesanan
-          </div>
-          <div class="col-8">
-            : Coffe bear
-          </div>
-          <div class="col-4">
-            Jumlah
-          </div>
-          <div class="col-8">
-            : 3
-          </div>
-          <div class="col-4">
-            Total Harga
-          </div>
-          <div class="col-8">
-            : 4
-          </div>
-          <div class="col-4">
-            Tanggal Pesan
-          </div>
-          <div class="col-8">
-            : 12 okt 2021
-          </div>
-          <div class="col-4">
-            Alamat
-          </div>
-          <div class="col-8">
-            : Depok
-          </div>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title border-bottom" id="exampleModalLabel">Nama Siswa</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-4">
+                        Kode Transaksi
+                    </div>
+                    <div class="col-8" id="kotra">
+                        : 1920100
+                    </div>
+                    <div class="col-4">
+                        Customer
+                    </div>
+                    <div class="col-8" id="customer">
+                        : saifudin
+                    </div>
+                    <div class="col-4">
+                        Pesanan
+                    </div>
+                    <div class="col-8" id="pesan">
+                        : Coffe bear
+                    </div>
+                    <div class="col-4">
+                        Jumlah
+                    </div>
+                    <div class="col-8" id="jumlah">
+                        : 3
+                    </div>
+                    <div class="col-4">
+                        Total Harga
+                    </div>
+                    <div class="col-8" id="total">
+                        : 4
+                    </div>
+                    <div class="col-4">
+                        Tanggal Pesan
+                    </div>
+                    <div class="col-8" id="tgl">
+                        : 12 okt 2021
+                    </div>
+                    <div class="col-4">
+                        Alamat
+                    </div>
+                    <div class="col-8" id="alamat">
+                        : Depok
+                    </div>
+                </div>
+                <hr>
+                <div class="text-center">
+                    <img id="bukti" src="{{ asset('assets/img/bukti/1634923279444.png') }}" alt="" width="250px">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+            </div>
         </div>
-        <hr>
-        <div class="text-center">
-          <img src="{{ asset('assets/img/bukti/1634923279444.png') }}" alt="" width="250px" >
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
-      </div>
     </div>
-  </div>
 </div>

@@ -1,5 +1,6 @@
 @extends('template.master')
 @push('link')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 @endpush
 @section('title', 'TOP ONE PANEL | ORDER')
 @section('judul', 'Order Makanan')
@@ -33,7 +34,11 @@
                         </label>
                     </div>
                     <div class="row justify-content-center">
-                        <label for="nama" class="label-form col-md-11 mb-3">
+                        <label for="nama" class="label-form col-md-4 mb-3">
+                            Customer
+                            <input type="text" name="customer" id="" class="form-control">
+                        </label>
+                        <label for="nama" class="label-form col-md-7 mb-3">
                             Alamat
                             <textarea name="alamat" id="alamat" class="form-control" cols=" 30" rows="2"></textarea>
                         </label>
@@ -51,8 +56,14 @@
                     <div class="row justify-content-center">
                         <label for="nama" class="label-form col-md-11 mb-3 lb-1">
                             Menu
-                            <select name="menu" id="menu" class="form-control">
-                                <option value="plh">Pilih satu</option>
+                            {{-- <select class="selectpicker" multiple data-actions-box="true">
+                                <option>Mustard</option>
+                                <option>Ketchup</option>
+                                <option>Relish</option>
+                            </select> --}}
+
+                            <select name="menu[]" id="menu" multiple class="selectpicker" data-live-search="true" multiple
+                                title="Pilih menu" data-style="form-control" data-width="100%">
                                 @if (\Carbon\Carbon::now()->format('l') == 'Saturday')
                                     @foreach ($satdim as $item)
                                         <option value="{{ $item->menu }}">{{ $item->menu }}</option>
@@ -85,11 +96,20 @@
                     </div>
                     <div class="row justify-content-center">
                         <label for="nama" class="label-form col-md-3 mb-3">
-                            Jumlah
+                            Jumlah/menu
                             <input type="number" name="qty" id="qty" class="form-control" value="0">
+                            {{-- @php
+                                use App\Models\Menu;
+                                $menu = Menu::whereIn('Menu', ['Temulawak', 'Ayam Bakar'])->get();
+                                // dd($menu);
+                                $harga = 0;
+                                foreach ($menu as $item) {
+                                    $harga += $item->harga;
+                                }
+                            @endphp --}}
                         </label>
                         <label for="" class="label-form col-md-4 mb-3">
-                            Harga / pcs
+                            Sub Total
                             <div id="hargaw">
                                 <span class="form-control" id="">0</span>
                                 <input type="number" class="d-none" id="harga" name="harga">
@@ -101,7 +121,13 @@
                             <input type="number" class="d-none" id="total" name="total">
                         </label>
                     </div>
-                    <div class="row justify-content-center mt-3">
+                    <div class="row justify-content-center">
+                        <label for="nama" class="label-form col-md-11 mb-2">
+                            Keterangan <span class="text-danger">(<em>Dimsum 1,Burger 1</em>)</span>
+                            <textarea name="keterangan" id="" cols="30" rows="5" class="form-control h-50"></textarea>
+                        </label>
+                    </div>
+                    <div class="row justify-content-center">
                         <div class="col-md-10"></div>
                         <button type="submit" class="btn btn-primary col-md-1">Simpan</button>
                     </div>
@@ -112,6 +138,13 @@
 @endsection
 
 @push('script')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
+    <script>
+        $('.selectpicker').selectpicker();
+    </script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script>
@@ -126,13 +159,14 @@
             // })
             $('#menu').change(function() {
                 let cid = $(this).val();
-
+                console.log(cid);
                 $.ajax({
                     url: '/getHarga',
                     type: 'post',
                     data: 'cid=' + cid + '&_token={{ csrf_token() }}',
                     success: function(result) {
                         $('#hargaw').html(result);
+                        console.log(result);
                         let a = $('#qty').val();
                         let b = $('#harga').val();
                         $('#ttl').html(new Intl.NumberFormat().format(b * a));
@@ -216,4 +250,5 @@
             });
         })
     </script>
+    <!-- Latest compiled and minified JavaScript -->
 @endpush

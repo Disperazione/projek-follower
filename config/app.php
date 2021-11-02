@@ -181,6 +181,9 @@ return [
         // IziToast
         LaraIzitoast\LaraIzitoastServiceProvider::class,
 
+        // Excel
+        Maatwebsite\Excel\ExcelServiceProvider::class,
+
     ],
 
     /*
@@ -238,6 +241,8 @@ return [
         // QR Code
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
 
+        // Excel
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

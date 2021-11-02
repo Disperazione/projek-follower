@@ -40,7 +40,17 @@ Route::prefix('admin')->group(function () {
         Route::post('/adduser/store', [Admincontroller::class, 'storeUser'])->name('admin.adduser.store');
         Route::get('/laporan/makanan', [Admincontroller::class, 'laporanmakanan'])->name('admin.laporan.makanan');
         Route::get('/laporan/followers', [Admincontroller::class, 'laporanfollowers'])->name('admin.laporan.followers');
-        
+        Route::get('laporan/getDetail/{id}', [Admincontroller::class, 'detail']);
+        Route::get('/export', [Admincontroller::class, 'exportExcel'])->name('admin.export');
+    });
+});
+
+Route::prefix('user')->group(function () {
+    Route::middleware('checkRole:user')->group(function () {
+        Route::get('/', [AdminController::class, 'login'])->name('user.login')->middleware('guest');
+        Route::middleware('auth')->group(function () {
+            Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');
+        });
     });
 });
 

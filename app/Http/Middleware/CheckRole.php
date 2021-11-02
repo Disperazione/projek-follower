@@ -23,9 +23,10 @@ class CheckRole
             $user = Auth::user()->role;
             if ($user == $role) {
                 return $next($request);
+            } else if ($user == 'admin') {
+                return redirect('/admin/dashboard');
             }
         }
-
-        return redirect('/');
+        return redirect('/user/dashboard');
     }
 }

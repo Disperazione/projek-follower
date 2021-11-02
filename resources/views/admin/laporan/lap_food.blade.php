@@ -9,22 +9,22 @@
     <div class="breadcrumb-item active"><a href="{{ route('admin.index') }}">Dashboard</a></div>
 @endsection
 @section('main')
-    {{-- laporan layanan --}}
+    {{-- laporan makanan --}}
     <div class="section-body">
         <div class="row">
           <div class="col-12">
             <div class="card">
               <div class="card-header">
-                <h4>Laporan/Bulan singular.care</h4>
+                <h4>Laporan/Bulan food.strap</h4>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
-                  <table class="table table-striped text-center" id="table-2">
+                  <table class="table table-striped text-center" id="table-3">
                     <thead>
                       <tr>
                         <th class="text-center">#</th>
+                        <th>Menu</th>
                         <th>Kategori</th>
-                        <th>Layanan</th>
                         <th>November/2021</th>
                         <th>December/2021</th>
                         <th>Januari/2022</th>
@@ -34,8 +34,8 @@
                     <tbody>
                       <tr>
                         <td>1</td>
-                        <td>Instagram</td>
-                        <td>Followers</td>
+                        <td>Cofee Beer</td>
+                        <td>Minuman</td>
                         <td>10</td>
                         <td>0</td>
                         <td>0</td>
@@ -43,8 +43,8 @@
                       </tr>
                       <tr>
                         <td>2</td>
-                        <td>Instagram</td>
-                        <td>Likes</td>
+                        <td>Kebab</td>
+                        <td>Makanan</td>
                         <td>20</td>
                         <td>0</td>
                         <td>0</td>
@@ -58,7 +58,7 @@
           </div>
         </div>
     </div>
-    {{-- laporan layanan --}}
+    {{-- laporan makanan --}}
 @endsection
 
 @push('script')
@@ -68,5 +68,5 @@
     <script src="{{ asset('assets/node-modules/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}"></script>
     <script src="{{asset('assets/js/page/modules-datatables.js')}}"></script>
 
-    @include('admin.brain.laba')
+    {{--   --}}
 @endpush

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailUser;
 use App\Models\Layanan;
 use App\Models\Menu;
 use App\Models\OrderLayanan;
@@ -11,6 +12,8 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
+use App\Exports\MakananExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
@@ -31,7 +34,7 @@ class AdminController extends Controller
             OrderMakanan::select('*')->count(),
             OrderMakanan::sum('total_harga') - OrderLayanan::sum('total'),
             OrderMakanan::sum('total_harga') / OrderMakanan::sum('qty'),
-            OrderLayanan::where('pembayaran', 'sudah')->sum('total'),
+            OrderLayanan::where('pembayaran', 'sudah')->sum('total') + OrderMakanan::sum('total_harga'),
         ];
 
         return view('admin.dashboard', compact('pesanan'));
@@ -71,13 +74,18 @@ class AdminController extends Controller
             if ($request->varian != 'Pilih satu') {
                 $menus .= $request->menu . ' (' . $request->varian . ')';
             } else {
-                $menus .= $request->menu;
+                $getm = $request->menu;
+                foreach ($getm as $item) {
+                    $menus .= $item . ',';
+                }
+                // $menus .= $request->menu;
             }
         }
         // dd($menus);
         // dd([$request, $menus]);
         $a = OrderMakanan::create([
             'nama' => $request->nama,
+            'customer' => $request->customer,
             'tlp' => '+62' . $request->tlp,
             'alamat' => $request->alamat,
             'email' => Null,
@@ -85,6 +93,7 @@ class AdminController extends Controller
             'qty' => $request->qty,
             'harga' => $request->harga,
             'total_harga' => $request->total,
+            'keterangan' => $request->keterangan,
             'bukti_pembayaran' => $namafile
         ]);
         // dd($a);
@@ -95,6 +104,7 @@ class AdminController extends Controller
 
     public function getHarga(Request $request)
     {
+        // dd($request->cid);
         if ($request->cid == 'plh') {
             $html = ' ';
             $html .=  '<span class="form-control">0</span>';
@@ -102,14 +112,17 @@ class AdminController extends Controller
             return $html;
         } else {
             $cid = $request->post('cid');
-            $menu = Menu::where('menu', $cid)->get();
+            $menu = Menu::whereIn('Menu', [$cid])->get();
+            // dd($menu);
+            $harga = 0;
             $html = ' ';
-            foreach ($menu as $list) {
-                $html .=  '<span class="form-control">' . number_format($list->harga) . '</span>';
-                $html .=  '<input class="d-none" id="harga" name="harga" value="' . $list->harga . '"></input>';
+            foreach ($menu as $item) {
+                $harga += $item->harga;
+                $html .=  '<span class="form-control">' . number_format($harga) . '</span>';
+                $html .=  '<input class="d-none" id="harga" name="harga" value="' . $harga . '"></input>';
             }
-            return $html;
         }
+        return $request->cid;
     }
 
     public function getPlus(Request $request)
@@ -208,6 +221,13 @@ class AdminController extends Controller
             'password' => Hash::make($request->password),
             'role' => 'user',
         ]);
+
+        DetailUser::create([
+            'nama' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+        ]);
+
         notify()->success("Berhasil registrasi", "Success", "bottomRight");
         return redirect()->route('admin.regis');
     }
@@ -240,8 +260,19 @@ class AdminController extends Controller
             DB::raw('sum(total) as `total`'),
             DB::raw("DATE_FORMAT(tgl, '%Y-%m-%d') as tgl")
         )
-            ->groupBy('tgl')->orderBy('tgl')->get();  
-        
-        return View('admin.laporan.followers',compact('order'));
+            ->groupBy('tgl')->orderBy('tgl')->get();
+
+        return View('admin.laporan.followers', compact('order'));
+    }
+
+    public function detail($id)
+    {
+        $detail = OrderMakanan::where('id', $id)->first();
+
+        return $detail;
+    }
+    public function exportExcel()
+    {
+        return Excel::download(new MakananExport, 'makanan.xlsx');
     }
 }

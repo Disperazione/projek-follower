@@ -89,15 +89,16 @@
                     <div class="row justify-content-center">
                         <div class="col-md-8">
                             <div class="mb-4">
-                                <h3><a href="{{ url('/') }}"><i class="fas fa-arrow-circle-left mr-2"></i></a> Sign In</h3>
+                                <h3><a href="{{ url('/') }}"><i class="fas fa-arrow-circle-left mr-2"></i></a> Sign In
+                                </h3>
                             </div>
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
                                 <div class="form-group first">
-                                    <label for="email">E-mail Address</label>
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                                    name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-                                    @error('email')
+                                    <label for="email">Username</label>
+                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="email"
+                                        name="name" value="{{ old('name') }}" required autocomplete="email" autofocus>
+                                    @error('name')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>
@@ -105,8 +106,8 @@
                                 </div>
                                 <div class="form-group last mb-4">
                                     <label for="password">Password</label>
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror" id="password"
-                                    name="password" required autocomplete="current-password">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                        id="password" name="password" required autocomplete="current-password">
                                     @error('password')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -114,14 +115,16 @@
                                     @enderror
                                 </div>
                                 <div class="d-flex mb-2 align-items-center">
-                                    <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
+                                    <label class="control control--checkbox mb-0"><span class="caption">Remember
+                                            me</span>
                                         <input type="checkbox" checked="checked" name="remember" id="remember"
-                                        {{ old('remember') ? 'checked' : '' }}>
+                                            {{ old('remember') ? 'checked' : '' }}>
                                         <div class="control__indicator"></div>
                                     </label>
                                     <span class="ml-auto">
                                         @if (Route::has('password.request'))
-                                            <a href="{{ route('password.request') }}" class="forgot-pass">Forgot Password</a>
+                                            <a href="{{ route('password.request') }}" class="forgot-pass">Forgot
+                                                Password</a>
                                         @endif
                                     </span>
                                 </div>
@@ -129,7 +132,9 @@
                                 <div class="mt-5 align-items-center" style="margin-bottom: -20px;">
                                     <span class="ml-auto">
                                         @if (Route::has('register'))
-                                            <a href="{{ route('register') }}" class="forgot-pass text-decoration-none">don't have an account? <u>register here!</u> </a>
+                                            <a href="{{ route('register') }}"
+                                                class="forgot-pass text-decoration-none">don't have an account? <u>register
+                                                    here!</u> </a>
                                         @endif
                                     </span>
                                 </div>

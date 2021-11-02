@@ -84,12 +84,16 @@ class HomeController extends Controller
             return $html;
         } else {
             $cid = $request->post('cid');
-            $menu = Menu::where('menu', $cid)->get();
-            $html = ' ';
-            foreach ($menu as $list) {
-                $html .=  '<span class="form-control">' . number_format($list->harga) . '</span>';
-                $html .=  '<input class="d-none" id="harga" name="harga" value="' . $list->harga . '"></input>';
+            $c = explode(',', $cid);
+            $menu = Menu::whereIn('Menu', $c)->get();
+            // dd($menu);
+            $harga = 0;
+            foreach ($menu as $item) {
+                $harga += $item->harga;
             }
+            $html = '<span class="form-control">' . number_format($harga) . '</span>';
+            $html .=  '<input class="d-none" id="harga" name="harga" value="' . $harga . '"></input>';
+
             return $html;
         }
     }

@@ -16,6 +16,7 @@ class CreateOrderMakanansTable extends Migration
         Schema::create('order_makanans', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('customer');
             $table->string('tlp');
             $table->longText('alamat');
             $table->string('email')->unique()->nullable();
@@ -23,6 +24,7 @@ class CreateOrderMakanansTable extends Migration
             $table->integer('qty');
             $table->integer('harga');
             $table->integer('total_harga');
+            $table->longText('keterangan');
             $table->string('bukti_pembayaran');
             $table->timestamps();
         });
