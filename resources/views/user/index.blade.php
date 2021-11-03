@@ -39,10 +39,12 @@
         .info-text {
             font-size: 13px;
         }
-        .card-pill{
+
+        .card-pill {
             border-radius: 16px;
         }
-        .iconbox{
+
+        .iconbox {
             margin: 0px auto;
         }
 

@@ -5,7 +5,7 @@
         href="{{ asset('assets/node-modules/datatables.net-select-bs4/css/select.bootstrap4.min.css') }}">
 @endpush
 @section('title', 'TOP ONE PANEL | Data Registrasi')
-@section('judul', 'DataRegistrasi')
+@section('judul', 'Data Registrasi')
 @section('breadcrumb')
     <div class="breadcrumb-item active"><a href="{{ route('admin.index') }}">Dashboard</a></div>
     <div class="breadcrumb-item">Data Registrasi</div>
@@ -22,8 +22,10 @@
                     <thead class="text-center">
                         <tr>
                             <th>No</th>
-                            <th>Email</th>
                             <th>Username</th>
+                            <th>Email</th>
+                            <th>Nomor Hp</th>
+                            <th>Saldo</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -31,9 +33,13 @@
                         @foreach ($user as $id => $item)
                             <tr class="text-center">
                                 <td>{{ ++$id }}</td>
-                                <td>{{ $item->name }}</td>
+                                <td>{{ $item->nama }}</td>
                                 <td>{{ $item->email }}</td>
-                                <td><a href="#" class="btn btn-secondary">Detail</a></td>
+                                <td>{{ $item->no_hp }}</td>
+                                <td>Rp {{ number_format($item->saldo) }}</td>
+                                <td><a href="{{ route('admin.regis.detail', $item->user_id) }}"
+                                        class="btn btn-secondary">Detail</a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

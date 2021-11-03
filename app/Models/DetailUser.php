@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
 
 class DetailUser extends Model
 {
@@ -12,10 +13,15 @@ class DetailUser extends Model
     protected $fillable = [
         'nama',
         'email',
+        'user_id',
         'email_verified_at',
-        'password',
         'saldo',
         'alamat',
         'no_hp',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

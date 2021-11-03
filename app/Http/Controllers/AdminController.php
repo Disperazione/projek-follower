@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Exports\MakananExport;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
@@ -32,9 +33,10 @@ class AdminController extends Controller
             OrderLayanan::select('*')->count() + OrderMakanan::select('*')->count(),
             OrderLayanan::select('*')->count(),
             OrderMakanan::select('*')->count(),
-            OrderMakanan::sum('total_harga') - OrderLayanan::sum('total'),
-            OrderMakanan::sum('total_harga') / OrderMakanan::sum('qty'),
+            OrderMakanan::sum('total_harga') + OrderLayanan::sum('total'),
+            's',
             OrderLayanan::where('pembayaran', 'sudah')->sum('total') + OrderMakanan::sum('total_harga'),
+            Layanan::all(),
         ];
 
         return view('admin.dashboard', compact('pesanan'));
@@ -47,6 +49,48 @@ class AdminController extends Controller
         $nasi = Menu::where('menu', 'Nasi')->get();
 
         return view('admin.order.index', compact('menu', 'nasi', 'satdim'));
+    }
+
+    public function storeLayanan(Request $request)
+    {
+        // dd($request);
+
+        $request->validate([
+            'kategori' => 'required',
+            'layanan' => 'required',
+            'target' => 'required',
+            'jumlah' => 'required',
+            'total' => 'required',
+        ]);
+        // dd($request);
+
+        $pay = DetailUser::where('user_id', Auth::user()->id)->first();
+        $saldo = $pay->saldo - $request->total;
+
+
+        if ($pay->saldo < $request->total) {
+            notify()->error("Opeasi Ilegal", "Error", "topRight");
+            return redirect()->route('admin.index');
+        } else {
+            OrderLayanan::create([
+                'kategori' => $request->kategori,
+                'layanan' => $request->layanan,
+                'target' => $request->target,
+                'user_id' => Auth::user()->id,
+                'jumlah' => $request->jumlah,
+                'total' => $request->total,
+                'status' => 'pending',
+                'pembayaran' => 'sudah',
+                'tgl' => date("Y-m-d"),
+            ]);
+
+            DetailUser::find($pay->id)->update([
+                'saldo' => $saldo,
+            ]);
+
+            notify()->success("Pesanan berhasil dibuat", "Success", "topRight");
+            return redirect()->route('admin.index');
+        }
     }
 
     public function store(Request $request)
@@ -197,7 +241,7 @@ class AdminController extends Controller
 
     public function regisUser()
     {
-        $user = User::where('role', 'user')->get();
+        $user = DetailUser::all();
         // dd($user);
         return view('admin.regis.regisuser', compact('user'));
     }
@@ -215,24 +259,104 @@ class AdminController extends Controller
             'password' => 'required',
         ]);
 
-        User::create([
-            'name' => $request->username,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-            'role' => 'user',
-        ]);
+        // User::create([
+        //     'name' => $request->username,
+        //     'email' => $request->email,
+        //     'password' => Hash::make($request->password),
+        //     'role' => 'user',
+        // ]);
 
-        DetailUser::create([
+        $user = new User();
+        $user->name = $request->username;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->role = 'user';
+        $user->save();
+
+        $insertedId = $user->id;
+
+        $data = DetailUser::create([
             'nama' => $request->username,
             'email' => $request->email,
-            'password' => Hash::make($request->password),
+            'user_id' => $insertedId,
+            'saldo' => 0,
         ]);
+        // dd($insertedId);
 
         notify()->success("Berhasil registrasi", "Success", "bottomRight");
         return redirect()->route('admin.regis');
     }
 
-    public function singular($singular)
+    public function detailUser($id)
+    {
+        $data = DetailUser::where('user_id', $id)->first();
+        // dd($data->user_id);
+        return view('admin.regis.detail', compact('data'));
+    }
+
+    public function updateUser(Request $request, $id)
+    {
+        $ids = DetailUser::where('user_id', $id)->first();
+
+        $request->validate([
+            'nama' => 'required',
+            // 'email' => 'required',
+            'no_hp' => 'required',
+            'saldo' => 'required',
+            'alamat' => 'required',
+            // 'password' => 'required',
+        ]);
+
+        // if ($request->no_hp != Null) {
+        //     DetailUser::find($ids->id)->update([
+        //         'nama' => $request->nama,
+        //         'email' => $request->email,
+        //         'no_hp' => $request->no_hp,
+        //     ]);
+        // } else if ($request->saldo != 0) {
+        //     DetailUser::find($ids->id)->update([
+        //         'nama' => $request->nama,
+        //         'email' => $request->email,
+        //         'saldo' => $request->saldo,
+        //     ]);
+        // } else if ($request->alamat != Null) {
+        //     DetailUser::find($ids->id)->update([
+        //         'nama' => $request->nama,
+        //         'email' => $request->email,
+        //         'alamat' => $request->alamat,
+        //     ]);
+        // } else if ($request->no_hp == Null or ) {
+        //     # code...
+        // }{
+        //     notify()->error("Operasi Ilegal", "Error", "bottomRight");
+        //     return back();
+        // }
+
+        DetailUser::find($ids->id)->update([
+            'nama' => $request->nama,
+            // 'email' => $request->email,
+            'saldo' => $request->saldo,
+            'no_hp' => $request->no_hp,
+            'alamat' => $request->alamat,
+        ]);
+
+        if ($request->password == Null) {
+            User::find($ids->user_id)->update([
+                'nama' => $request->nama,
+                // 'email' => $request->email,
+            ]);
+        } else {
+            User::find($ids->user_id)->update([
+                'nama' => $request->nama,
+                // 'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+        }
+        notify()->success("Berhasil mengubah data", "Success", "bottomRight");
+        return redirect()->route('admin.regis');
+    }
+
+    public function singular()
     {
         return view('admin.layanan.detail');
     }

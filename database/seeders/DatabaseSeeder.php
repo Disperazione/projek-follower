@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        OrderMakanan::factory(5)->create();
+        // OrderMakanan::factory(5)->create();
         Menu::create([
             'menu' => 'Cofee Beer',
             'harga' => '12000',

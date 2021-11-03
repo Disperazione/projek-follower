@@ -29,7 +29,7 @@ Route::prefix('admin')->group(function () {
         Route::post('/order/store', [AdminController::class, 'store'])->name('admin.store');
 
         Route::get('/dataorder', [Admincontroller::class, 'dataorder'])->name('admin.dataorder');
-        Route::get('/dataorder/detail-singular/{singular:slug}', [Admincontroller::class, 'singular'])->name('admin.dataorder.singular');
+        Route::get('/dataorder/detail-singular/{id}', [Admincontroller::class, 'singular'])->name('admin.dataorder.singular');
 
         Route::get('/layanan', [AdminController::class, 'layanan'])->name('admin.layanan');
         Route::get('/addlayanan', [AdminController::class, 'addLayanan'])->name('admin.addLayanan');
@@ -38,6 +38,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/regisuser', [Admincontroller::class, 'regisUser'])->name('admin.regis');
         Route::get('/adduser', [Admincontroller::class, 'addUser'])->name('admin.adduser');
         Route::post('/adduser/store', [Admincontroller::class, 'storeUser'])->name('admin.adduser.store');
+        Route::get('/regisuser/detail/{id}', [Admincontroller::class, 'detailUser'])->name('admin.regis.detail');
+        Route::post('/regisuser/detail/update/{id}', [Admincontroller::class, 'updateUser'])->name('admin.regis.detail.update');
+
         Route::get('/laporan/makanan', [Admincontroller::class, 'laporanmakanan'])->name('admin.laporan.makanan');
         Route::get('/laporan/followers', [Admincontroller::class, 'laporanfollowers'])->name('admin.laporan.followers');
         Route::get('laporan/getDetail/{id}', [Admincontroller::class, 'detail']);
@@ -50,6 +53,7 @@ Route::prefix('user')->group(function () {
         Route::get('/', [AdminController::class, 'login'])->name('user.login')->middleware('guest');
         Route::middleware('auth')->group(function () {
             Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');
+            Route::post('/dashboard/store', [AdminController::class, 'storeLayanan'])->name('admin.user.store');
         });
     });
 });

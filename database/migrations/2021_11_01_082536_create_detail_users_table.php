@@ -18,11 +18,14 @@ class CreateDetailUsersTable extends Migration
             $table->string('nama');
             $table->string('email')->unique();
             $table->string('email_verified_at')->nullable();
-            $table->string('password');
-            $table->double('saldo')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->double('saldo');
             $table->longText('alamat')->nullable();
-            $table->integer('no_hp')->nullable();
+            $table->string('no_hp')->nullable();
             $table->timestamps();
+
+            // Relasi User
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

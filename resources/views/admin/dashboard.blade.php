@@ -144,7 +144,8 @@
                                                 notify()->error('Operasi Illegal', 'Error', 'topCenter');
                                             @endphp
                                         @endif
-                                        <form action="{{ route('user.store') }}" method="post" enctype="" id="form">
+                                        <form action="{{ route('admin.user.store') }}" method="post" enctype=""
+                                            id="form">
                                             @csrf
                                             <div class="alert alert-warning col-12" role="alert">
                                                 <i class="fas fa-exclamation-triangle mr-2"></i>
@@ -198,7 +199,8 @@
                                                     Harga/1000
                                                     <div id="hargak">
                                                         <span class="form-control" id="hargaks">0</span>
-                                                        <input type="number" class="d-none" id="hargk" name="hargaperk">
+                                                        <input type="number" class="d-none" id="hargk"
+                                                            name="hargaperk">
                                                         <input type="number" class="d-none" id="realpr" value="">
                                                     </div>
                                                 </label>
@@ -257,19 +259,24 @@
                                             bukan username akun TIK TOK</li>
                                         <li>Jika Membeli Subscribe YOUTUBE Maka Target diisikan Dengan Link/Url Akun YOUTUBE
                                             bukan nama akun YOUTUBE</li>
-                                        <li>Jika Membeli Likes/Views INTAGRAM, TIK TOK, YOUTUBE. Maka Target diisikan Link/Url
+                                        <li>Jika Membeli Likes/Views INTAGRAM, TIK TOK, YOUTUBE. Maka Target diisikan
+                                            Link/Url
                                             Postingan Tersebut</li>
-                                        <li>Dilarang melakukan pemesanan ganda pada <u>data yang sama</u> jika status pemesanan
+                                        <li>Dilarang melakukan pemesanan ganda pada <u>data yang sama</u> jika status
+                                            pemesanan
                                             sebelumnya masih Pending/Processing. Silakan tunggu hingga status pemesanan
                                             sebelumnya Error/Success, baru kemudian pesan kembali.</li>
-                                        <li>Jika ingin membuat pesanan dengan Target yang sama dengan pesanan yang sudah pernah
-                                            dipesan sebelumnya, mohon menunggu sampai pesanan sebelumnya selesai diproses</li>
+                                        <li>Jika ingin membuat pesanan dengan Target yang sama dengan pesanan yang sudah
+                                            pernah
+                                            dipesan sebelumnya, mohon menunggu sampai pesanan sebelumnya selesai diproses
+                                        </li>
                                         <li>Jika pesanan belum masuk, Harap kontak admin dengan megklik <a
                                                 href="https://api.whatsapp.com/send?phone=6289530807796&text=Bagaimana%20dengan%20pesanan%20saya%20?"
                                                 target="
-                                                _blank">Contact</a>
+                                                            _blank">Contact</a>
                                         </li>
-                                        <li>Jika terjadi kesalahan / mendapatkan pesan gagal yang kurang jelas, silahkan hubungi
+                                        <li>Jika terjadi kesalahan / mendapatkan pesan gagal yang kurang jelas, silahkan
+                                            hubungi
                                             Admin untuk informasi lebih lanjut.</li>
                                     </ul>
                                 </ul>
@@ -286,4 +293,132 @@
 
 @push('script')
     @include('admin.brain.laba')
+
+    <script>
+        $(document).ready(function() {
+            $('#kategori').change(function() {
+                let cid = $(this).val();
+                $.ajax({
+                    url: '/getLayanan',
+                    type: 'post',
+                    data: 'cid=' + cid + '&_token={{ csrf_token() }}',
+                    success: function(result) {
+                        $('#layanan').html(result);
+                    },
+                });
+                $('#a').html('0');
+                $('#ab').val('0');
+                $('#b').html('-');
+                $('#c').html('0');
+                $('#cd').val('0');
+                $('#d').html('0');
+                $('#de').val('0');
+            });
+            $('#layanan').change(function() {
+                let cid = $(this).val();
+                let cud = $('#kategori').val();
+                $.ajax({
+                    url: '/getLG',
+                    type: 'post',
+                    data: 'cid=' + cid + '&cud=' + cud + '&_token={{ csrf_token() }}',
+                    success: function(result) {
+                        $('#hargak').html(result);
+                        let a = $('#jumlah').val();
+                        let b = $('#realpr').val();
+                        $('#ttl').html(new Intl.NumberFormat().format(b * a));
+                        $('#total').val(b * a);
+                    },
+                });
+            });
+
+            $('#layanan').change(function() {
+                let cid = $(this).val();
+                let cud = $('#kategori').val();
+                $.ajax({
+                    url: '/getDesk',
+                    type: 'post',
+                    data: 'cid=' + cid + '&cud=' + cud + '&_token={{ csrf_token() }}',
+                    success: function(result) {
+                        $('#desk').html(result);
+                    },
+                });
+            });
+
+            $('#layanan').change(function() {
+                let cid = $(this).val();
+                let cud = $('#kategori').val();
+                $.ajax({
+                    url: '/getMin',
+                    type: 'post',
+                    data: 'cid=' + cid + '&cud=' + cud + '&_token={{ csrf_token() }}',
+                    success: function(result) {
+                        $('#min').html(result);
+                    },
+                });
+            });
+
+            $('#layanan').change(function() {
+                let cid = $(this).val();
+                let cud = $('#kategori').val();
+                $.ajax({
+                    url: '/getMax',
+                    type: 'post',
+                    data: 'cid=' + cid + '&cud=' + cud + '&_token={{ csrf_token() }}',
+                    success: function(result) {
+                        $('#max').html(result);
+                    },
+                });
+            });
+        });
+
+        $('#jumlah').change(function() {
+            let a = $('#jumlah').val();
+            let b = $('#realpr').val();
+            $('#ttl').html(new Intl.NumberFormat().format(b * a));
+            $('#total').val(b * a);
+        });
+        $('#jumlah').keyup(function() {
+            let a = $('#jumlah').val();
+            let b = $('#realpr').val();
+            $('#ttl').html(new Intl.NumberFormat().format(b * a));
+            $('#total').val(b * a);
+        });
+
+        function valid() {
+            let a = $('#jumlah').val();
+            let b = $('#cd').val();
+            let c = $('#de').val();
+            // if (a == 500) {
+            //     document.getElementById("form").submit();
+            // } else if (a < b || a > c) {
+            //     iziToast.error({
+            //         title: 'Error',
+            //         message: 'Operasi ilegal',
+            //         position: 'topCenter',
+            //     });
+            // } else {
+            //     document.getElementById("form").submit();
+            // }
+            switch (a) {
+                case a < b:
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Operasi ilegal',
+                        position: 'topCenter',
+                    });
+                    break;
+                case a > c:
+                    iziToast.error({
+                        title: 'Error',
+                        message: 'Operasi ilegal',
+                        position: 'topCenter',
+                    });
+                    break;
+
+                default:
+                    document.getElementById("form").submit();
+                    break;
+            }
+        }
+    </script>
 @endpush
