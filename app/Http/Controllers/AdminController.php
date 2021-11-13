@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Exports\MakananExport;
+use App\Exports\UserMknExport;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -108,7 +110,11 @@ class AdminController extends Controller
         //     // 'bukti_pembayaran' => 'required'
         // ]);
 
+        // dd($nomor->id);
+
         $menus = '';
+        $qty = 0;
+        $totalharga = 0;
         $bktpb = $request->bukti;
         $namafile = time() . rand(100, 999) . "." . $bktpb->getClientOriginalExtension();
         // dd($request->varian);
@@ -125,18 +131,46 @@ class AdminController extends Controller
                 // $menus .= $request->menu;
             }
         }
+
+
+        if (count($request->menu) > 1) {
+            $qty = 1;
+            $totalharga = $request->harga;
+        } else {
+            $totalharga = $request->total;
+            $qty = $request->qty;
+        }
+
+        // dd($qty);
         // dd($menus);
         // dd([$request, $menus]);
-        $a = OrderMakanan::create([
+        $nomor = OrderMakanan::select('*')->latest()->first();
+        // dd($nomor);
+
+        if ($nomor == Null) {
+            $table_no =  0;
+        } else {
+            $table_no =  $nomor->id;
+        }
+        $tgl = substr(str_replace('-', '', Carbon::now()), 0, 8);
+
+        $no = $tgl . $table_no;
+        $auto = substr($no, 8);
+        $auto = intval($auto) + 1;
+        $auto_number = substr($no, 0, 8) . str_repeat(0, (4 - strlen($auto))) . $auto;
+
+
+        OrderMakanan::create([
+            'kode_transaksi' => $auto_number,
             'nama' => $request->nama,
             'customer' => $request->customer,
             'tlp' => '+62' . $request->tlp,
             'alamat' => $request->alamat,
             'email' => Null,
             'menu' => $menus,
-            'qty' => $request->qty,
+            'qty' => $qty,
             'harga' => $request->harga,
-            'total_harga' => $request->total,
+            'total_harga' => $totalharga,
             'keterangan' => $request->keterangan,
             'bukti_pembayaran' => $namafile
         ]);
@@ -203,11 +237,14 @@ class AdminController extends Controller
 
     public function dataorder()
     {
-        $data = [
-            OrderLayanan::all(),
-            OrderMakanan::all()
-        ];
-        return view('admin.order.dataorder', compact('data'));
+        $orderlyn = OrderLayanan::all();
+        $ordermkn = OrderMakanan::all();
+        return view('admin.order.dataorder', compact('orderlyn', 'ordermkn'));
+    }
+    public function usdataorder()
+    {
+        $orderlyn = OrderLayanan::where('user_id', Auth::user()->id)->get();
+        return view('admin.order.dataorder', compact('orderlyn'));
     }
 
     public function getStatus(Request $request)
@@ -373,7 +410,13 @@ class AdminController extends Controller
         // $siswa = orderMakanan::count('id');
         // $qty = OrderMakanan::sum('qty');    
         // $total = orderMakanan::sum('total_harga');
-        $ordermakanan = orderMakanan::all();
+        $ordermakanan = OrderMakanan::all();
+        return View('admin.laporan.makanan', compact('ordermakanan'));
+    }
+
+    public function sislprmkn()
+    {
+        $ordermakanan = OrderMakanan::where('nama', Auth::user()->name)->get();
         return View('admin.laporan.makanan', compact('ordermakanan'));
     }
 
@@ -398,5 +441,40 @@ class AdminController extends Controller
     public function exportExcel()
     {
         return Excel::download(new MakananExport, 'makanan.xlsx');
+    }
+    public function exportExcelUser()
+    {
+        return Excel::download(new UserMknExport, 'makanan.xlsx');
+    }
+
+    public function dataSiswa()
+    {
+        $siswa = User::where('role', 'siswa')->get();
+
+        return view('admin.siswa.data-siswa', compact('siswa'));
+    }
+    public function addSiswa()
+    {
+        $siswa = User::where('role', 'siswa')->get();
+
+        return view('admin.siswa.addsiswa', compact('siswa'));
+    }
+    public function storeSiswa(Request $request)
+    {
+        $request->validate([
+            'username' => 'required',
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        User::create([
+            'name' => $request->username,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'siswa',
+        ]);
+
+        notify()->success("Berhasil registrasi", "Success", "bottomRight");
+        return redirect()->route('admin.siswa.index');
     }
 }

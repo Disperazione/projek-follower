@@ -22,8 +22,10 @@
                             <input type="file" name="bukti" id="bukti" class="d-none">
                         </label>
                         <label for="nama" class="label-form col-md-5 mb-3 mt-3">
-                            Nama Pelanggan
-                            <input type="text" name="nama" id="nama" class="form-control">
+                            Nama Kasir
+                            <span class="form-control text-capitalize">{{ Auth::user()->name }}</span>
+                            <input class="d-none" type="text" name="nama" id="nama"
+                                value="{{ Auth::user()->name }}">
                         </label>
                         <label for="nama" class="label-form col-md-4 mb-3 mt-3">
                             No Telp.
@@ -97,7 +99,9 @@
                     <div class="row justify-content-center">
                         <label for="nama" class="label-form col-md-3 mb-3">
                             Jumlah/menu
-                            <input type="number" name="qty" id="qty" class="form-control" value="0">
+                            <div id="lbh">
+                                <input type="number" name="qty" id="qty" class="form-control" value="0">
+                            </div>
                             {{-- @php
                                 use App\Models\Menu;
                                 $menu = Menu::whereIn('Menu', ['Temulawak', 'Ayam Bakar'])->get();
@@ -159,7 +163,6 @@
             // })
             $('#menu').change(function() {
                 let cid = $(this).val();
-                console.log(cid);
                 $.ajax({
                     url: '/getHarga',
                     type: 'post',
@@ -175,6 +178,9 @@
                 });
 
                 let a = $('#menu').val();
+                if (a.length > 1) {
+                    $('#lbh').html('<span class="form-control" id="qty">0</span>')
+                }
 
                 if (a == 'Ayam Bakar') {
                     $('.lb-1').removeClass('col-md-11');

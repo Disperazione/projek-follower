@@ -9,6 +9,7 @@ class OrderMakanan extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'kode_transaksi',
         'nama',
         'customer',
         'tlp',

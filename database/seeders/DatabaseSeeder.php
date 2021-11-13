@@ -71,6 +71,12 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
             'role' => 'admin',
         ]);
+        User::create([
+            'name' => 'siswa',
+            'email' => 'siswa@siswa.com',
+            'password' => Hash::make('password'),
+            'role' => 'siswa',
+        ]);
 
         Layanan::insert([
             [

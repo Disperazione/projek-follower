@@ -5,6 +5,9 @@
     @if (Auth::user()->role == 'user')
         <a href="{{ route('admin.index') }}" class="navbar-brand sidebar-gone-hide ml-5">Singular.care</a>
     @endif
+    @if (Auth::user()->role == 'siswa')
+        <a href="{{ route('admin.index') }}" class="navbar-brand sidebar-gone-hide ml-5">FoodStrap</a>
+    @endif
     <a href="#" class="nav-link sidebar-gone-show" data-toggle="sidebar"><i class="fas fa-bars"></i></a>
     <div class="nav-collapse">
         <a class="sidebar-gone-show nav-collapse-toggle nav-link" href="#">
@@ -108,18 +111,22 @@
                     </div>
                 </div>
                 <div class="dropdown-list-content dropdown-list-icons">
-                    @if ($pesan == 0)
+                    @if (Auth::user()->role == 'admin')
+                        @if ($pesan == 0)
 
+                        @else
+                            <a href="{{ route('admin.dataorder') }}" class="dropdown-item dropdown-item-unread">
+                                <div class="dropdown-item-icon bg-danger text-white">
+                                    <i class="fas fa-exclamation"></i>
+                                </div>
+                                <div class="dropdown-item-desc">
+                                    Kamu mempunyai {{ $pesan }} pesanan pending
+                                    <div class="time text-primary">2 Min Ago</div>
+                                </div>
+                            </a>
+                        @endif
                     @else
-                        <a href="{{ route('admin.dataorder') }}" class="dropdown-item dropdown-item-unread">
-                            <div class="dropdown-item-icon bg-danger text-white">
-                                <i class="fas fa-exclamation"></i>
-                            </div>
-                            <div class="dropdown-item-desc">
-                                Kamu mempunyai {{ $pesan }} pesanan pending
-                                <div class="time text-primary">2 Min Ago</div>
-                            </div>
-                        </a>
+
                     @endif
                 </div>
                 <div class="dropdown-footer text-center">
@@ -137,7 +144,7 @@
                 use App\Models\DetailUser;
                 $saldo = DetailUser::where('user_id', Auth::user()->id)->first();
             @endphp
-            @if (Auth::user()->role == 'admin')
+            @if (Auth::user()->role == 'admin' or Auth::user()->role == 'siswa')
                 <div class="dropdown-menu dropdown-menu-right">
                     <div class="dropdown-title">Logged in 5 </div>
                     <a href="features-profile.html" class="dropdown-item has-icon">

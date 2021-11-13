@@ -24,36 +24,53 @@ Route::get('/', function () {
 Route::prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'login'])->name('admin.login')->middleware('guest');
     Route::middleware('auth')->group(function () {
-        Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');
-        Route::get('/order', [AdminController::class, 'order'])->name('admin.order');
-        Route::post('/order/store', [AdminController::class, 'store'])->name('admin.store');
+        Route::middleware('checkRole:admin')->group(function () {
+            Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');
+            Route::get('/order', [AdminController::class, 'order'])->name('admin.order');
+            Route::post('/order/store', [AdminController::class, 'store'])->name('admin.store');
 
-        Route::get('/dataorder', [Admincontroller::class, 'dataorder'])->name('admin.dataorder');
-        Route::get('/dataorder/detail-singular/{id}', [Admincontroller::class, 'singular'])->name('admin.dataorder.singular');
+            Route::get('/dataorder', [Admincontroller::class, 'dataorder'])->name('admin.dataorder');
+            Route::get('/dataorder/detail-singular/{id}', [Admincontroller::class, 'singular'])->name('admin.dataorder.singular');
 
-        Route::get('/layanan', [AdminController::class, 'layanan'])->name('admin.layanan');
-        Route::get('/addlayanan', [AdminController::class, 'addLayanan'])->name('admin.addLayanan');
-        Route::post('/getStatus', [AdminController::class, 'getStatus']);
+            Route::get('/layanan', [AdminController::class, 'layanan'])->name('admin.layanan');
+            Route::get('/addlayanan', [AdminController::class, 'addLayanan'])->name('admin.addLayanan');
+            Route::post('/getStatus', [AdminController::class, 'getStatus']);
 
-        Route::get('/regisuser', [Admincontroller::class, 'regisUser'])->name('admin.regis');
-        Route::get('/adduser', [Admincontroller::class, 'addUser'])->name('admin.adduser');
-        Route::post('/adduser/store', [Admincontroller::class, 'storeUser'])->name('admin.adduser.store');
-        Route::get('/regisuser/detail/{id}', [Admincontroller::class, 'detailUser'])->name('admin.regis.detail');
-        Route::post('/regisuser/detail/update/{id}', [Admincontroller::class, 'updateUser'])->name('admin.regis.detail.update');
+            Route::get('/regisuser', [Admincontroller::class, 'regisUser'])->name('admin.regis');
+            Route::get('/adduser', [Admincontroller::class, 'addUser'])->name('admin.adduser');
+            Route::post('/adduser/store', [Admincontroller::class, 'storeUser'])->name('admin.adduser.store');
+            Route::get('/regisuser/detail/{id}', [Admincontroller::class, 'detailUser'])->name('admin.regis.detail');
+            Route::post('/regisuser/detail/update/{id}', [Admincontroller::class, 'updateUser'])->name('admin.regis.detail.update');
 
-        Route::get('/laporan/makanan', [Admincontroller::class, 'laporanmakanan'])->name('admin.laporan.makanan');
-        Route::get('/laporan/followers', [Admincontroller::class, 'laporanfollowers'])->name('admin.laporan.followers');
-        Route::get('laporan/getDetail/{id}', [Admincontroller::class, 'detail']);
-        Route::get('/export', [Admincontroller::class, 'exportExcel'])->name('admin.export');
+            Route::get('/laporan/makanan', [Admincontroller::class, 'laporanmakanan'])->name('admin.laporan.makanan');
+            Route::get('/laporan/followers', [Admincontroller::class, 'laporanfollowers'])->name('admin.laporan.followers');
+            Route::get('laporan/getDetail/{id}', [Admincontroller::class, 'detail']);
+            Route::get('/export', [Admincontroller::class, 'exportExcel'])->name('admin.export');
+            Route::get('/data-siswa', [Admincontroller::class, 'dataSiswa'])->name('admin.siswa.index');
+            Route::get('/data-siswa/tambah', [Admincontroller::class, 'addSiswa'])->name('admin.siswa.add');
+            Route::post('/data-siswa/tambah/store', [Admincontroller::class, 'storeSiswa'])->name('admin.siswa.store');
+        });
     });
 });
 
+Route::get('/', [AdminController::class, 'login'])->name('user.login')->middleware('guest');
+
+
 Route::prefix('user')->group(function () {
-    Route::middleware('checkRole:user')->group(function () {
-        Route::get('/', [AdminController::class, 'login'])->name('user.login')->middleware('guest');
-        Route::middleware('auth')->group(function () {
-            Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');
+    Route::middleware('auth')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'index'])->name('admin.index');
+        Route::middleware('checkRole:user')->group(function () {
             Route::post('/dashboard/store', [AdminController::class, 'storeLayanan'])->name('admin.user.store');
+            Route::get('/layanan', [AdminController::class, 'layanan'])->name('user.layanan');
+            Route::get('/dataorder', [Admincontroller::class, 'usdataorder'])->name('user.dataorder');
+        });
+        Route::middleware('checkRole:siswa')->group(function () {
+            Route::middleware('auth')->group(function () {
+                Route::get('/order', [AdminController::class, 'order'])->name('user.order');
+                Route::post('/order/store', [AdminController::class, 'store'])->name('admin.store');
+                Route::get('/laporan/makanan', [Admincontroller::class, 'sislprmkn'])->name('user.laporan.makanan');
+                Route::get('/export', [Admincontroller::class, 'exportExcelUser'])->name('user.export');
+            });
         });
     });
 });

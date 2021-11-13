@@ -7,7 +7,8 @@
 @section('title', 'TOP ONE PANEL | LAPORAN')
 @section('judul', 'LAPORAN')
 @section('breadcrumb')
-    <div class="breadcrumb-item active"><a href="{{ route('admin.index') }}">Laporan</a></div>
+    <div class="breadcrumb-item active"><a href="{{ route('admin.index') }}">Dashboard</a></div>
+    <div class="breadcrumb-item active">Laporan</div>
 @endsection
 @section('main')
     {{-- laporan makanan --}}
@@ -19,7 +20,13 @@
                         <h4>Laporan/Bulan food.strap</h4>
                     </div>
                     <div class="card-body">
-                        <a href="{{ route('admin.export') }}" class="btn btn-success mb-3 bg-success"><i class="fas fa-file-excel"></i> Export Excel</a>
+                        @if (Auth::user()->role == 'admin')
+                            <a href="{{ route('admin.export') }}" class="btn btn-success mb-3 bg-success"><i
+                                    class="fas fa-file-excel"></i> Export Excel</a>
+                        @else
+                            <a href="{{ route('user.export') }}" class="btn btn-success mb-3 bg-success"><i
+                                    class="fas fa-file-excel"></i> Export Excel</a>
+                        @endif
                         <div class="table-responsive">
                             <table class="table table-striped " id="table-1">
                                 <thead class="text-center">
@@ -38,9 +45,9 @@
                                     @foreach ($ordermakanan as $item)
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
-                                            <td class="text-center">1920{{ $item->id }}</td>
+                                            <td class="text-center">{{ $item->kode_transaksi }}</td>
                                             <td>{{ $item->nama }}</td>
-                                            <td>{{ $item->nama }}</td>
+                                            <td>{{ $item->customer }}</td>
                                             <td class="text-center">{{ $item->menu }}</td>
                                             <td class="text-center">{{ $item->qty }}</td>
                                             <td class="text-center">Rp. {{ number_format($item->total_harga) }}</td>
@@ -97,26 +104,80 @@
 
     <script>
         $(document).ready(function() {
+            var id = [];
+            var kode_transaksi = [];
+            var nama = [];
+            var customer = [];
+            var menu = [];
+            var jumlah = [];
+            var total_harga = [];
+            var tgl = [];
+            var alamat = [];
+            var keterangan = [];
+            var bukti_pembayaran = [];
+
+            // nama.Push('hai');
+            <?php foreach ($ordermakanan as $item): ?>
+            id.push(<?php echo '"' . $item->id . '"'; ?>);
+            kode_transaksi.push(<?php echo '"' . $item->kode_transaksi . '"'; ?>);
+            nama.push(<?php echo '"' . $item->nama . '"'; ?>);
+            customer.push(<?php echo '"' . $item->customer . '"'; ?>);
+            menu.push(<?php echo '"' . $item->menu . '"'; ?>);
+            jumlah.push(<?php echo '"' . $item->qty . '"'; ?>);
+            total_harga.push(<?php echo '"' . $item->total_harga . '"'; ?>);
+            tgl.push(<?php echo '"' . $item->created_at->format('d/F/Y') . '"'; ?>);
+            alamat.push(<?php echo '"' . $item->alamat . '"'; ?>);
+            keterangan.push(<?php echo '"' . $item->keterangan . '"'; ?>);
+            bukti_pembayaran.push(<?php echo '"' . $item->bukti_pembayaran . '"'; ?>);
+            <?php endforeach; ?>
+
+
             $('.detail').click(function() {
-                let a = $(this).attr('data-detail');
-                // console.log(a);
-                $.ajax({
-                    url: 'getDetail/' + a,
-                    type: 'get',
-                    success: function(result) {
-                        // console.log(result['bukti_pembayaran']);
-                        $('#exampleModalLabel').html(result['nama']);
-                        $('#kotra').html(': 1920' + result['id']);
-                        $('#customer').html(': ' + result['nama']);
-                        $('#pesan').html(': ' + result['menu']);
-                        $('#jumlah').html(result['jumlah']);
-                        $('#total').html(': ' + result['total_harga']);
-                        $('#tgl').html(': ' + result['created_at']);
-                        $('#alamat').html(': ' + result['alamat']);
-                        $('#bukti').attr('src', 'http://127.0.0.1:8000/assets/img/bukti/' +
-                            result['bukti_pembayaran']);
-                    },
-                })
+                let a = parseInt($(this).attr('data-detail')) - 1;
+                // let b = parseInt($(this).attr('data-detail'));
+                $('#exampleModalLabel').html(nama[a]);
+                $('#kotra').html(': ' + kode_transaksi[a]);
+                $('#customer').html(': ' + customer[a]);
+                $('#pesan').html(': ' + menu[a]);
+                $('#jumlah').html(': ' + jumlah[a]);
+                $('#total').html(': ' + total_harga[a]);
+                $('#tgl').html(': ' + tgl[a]);
+                $('#alamat').html(': ' + alamat[a]);
+                $('#keterangan').html(': ' + keterangan[a]);
+                $('#bukti').attr('src', 'http://127.0.0.1:8000/assets/img/bukti/' +
+                    bukti_pembayaran[a]);
+                // $('#next').attr('data-detail', a);
+                // let b = parseInt($('#next').data('detail'));
+                // $('#next').click(function() {
+                //     // let b = a + 1;
+                //     let c = id[b];
+                //     console.log(b);
+                //     $('#exampleModalLabel').html(nama[c]);
+                //     $('#kotra').html(': ' + kode_transaksi[c]);
+                //     $('#customer').html(': ' + customer[c]);
+                //     $('#pesan').html(': ' + menu[c]);
+                //     $('#jumlah').html(': ' + jumlah[c]);
+                //     $('#total').html(': ' + total_harga[c]);
+                //     $('#tgl').html(': ' + tgl[c]);
+                //     $('#alamat').html(': ' + alamat[c]);
+                //     $('#keterangan').html(': ' + keterangan[c]);
+                //     $('#bukti').attr('src', 'http://127.0.0.1:8000/assets/img/bukti/' +
+                //         bukti_pembayaran[c]);
+                //     let d = parseInt($('#next').data('detail'));
+                //     $('#next').attr('data-detail', d + 1);
+                // });
+
+                // switch (a) {
+                //     case a == 0:
+
+                //         break;
+                //     default:
+                //         $('#prev').attr('data-detail', Number(a) - 1);
+                //         break;
+                // }
+                // $('#next').attr('data-detail', 1);
+                // console.log($('#next').data());
+                // console.log($('.detail').data());
             });
         });
     </script>
@@ -126,67 +187,75 @@
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title border-bottom" id="exampleModalLabel">Nama Siswa</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-4">
-                        Kode Transaksi
+    <div>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title border-bottom" id="exampleModalLabel">Nama Siswa</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4">
+                            Kode Transaksi
+                        </div>
+                        <div class="col-8" id="kotra">
+                            : 1920100
+                        </div>
+                        <div class="col-4">
+                            Customer
+                        </div>
+                        <div class="col-8" id="customer">
+                            : saifudin
+                        </div>
+                        <div class="col-4">
+                            Pesanan
+                        </div>
+                        <div class="col-8" id="pesan">
+                            : Coffe bear
+                        </div>
+                        <div class="col-4">
+                            Jumlah
+                        </div>
+                        <div class="col-8" id="jumlah">
+                            : 3
+                        </div>
+                        <div class="col-4">
+                            Total Harga
+                        </div>
+                        <div class="col-8" id="total">
+                            : 4
+                        </div>
+                        <div class="col-4">
+                            Tanggal Pesan
+                        </div>
+                        <div class="col-8" id="tgl">
+                            : 12 okt 2021
+                        </div>
+                        <div class="col-4">
+                            Alamat
+                        </div>
+                        <div class="col-8" id="alamat">
+                            : Depok
+                        </div>
+                        <div class="col-4">
+                            Keterangan
+                        </div>
+                        <div class="col-8" id="keterangan">
+                            : sdkj
+                        </div>
                     </div>
-                    <div class="col-8" id="kotra">
-                        : 1920100
-                    </div>
-                    <div class="col-4">
-                        Customer
-                    </div>
-                    <div class="col-8" id="customer">
-                        : saifudin
-                    </div>
-                    <div class="col-4">
-                        Pesanan
-                    </div>
-                    <div class="col-8" id="pesan">
-                        : Coffe bear
-                    </div>
-                    <div class="col-4">
-                        Jumlah
-                    </div>
-                    <div class="col-8" id="jumlah">
-                        : 3
-                    </div>
-                    <div class="col-4">
-                        Total Harga
-                    </div>
-                    <div class="col-8" id="total">
-                        : 4
-                    </div>
-                    <div class="col-4">
-                        Tanggal Pesan
-                    </div>
-                    <div class="col-8" id="tgl">
-                        : 12 okt 2021
-                    </div>
-                    <div class="col-4">
-                        Alamat
-                    </div>
-                    <div class="col-8" id="alamat">
-                        : Depok
+                    <hr>
+                    <div class="text-center">
+                        <img id="bukti" src="{{ asset('assets/img/bukti/1634923279444.png') }}" alt="" width="250px">
                     </div>
                 </div>
-                <hr>
-                <div class="text-center">
-                    <img id="bukti" src="{{ asset('assets/img/bukti/1634923279444.png') }}" alt="" width="250px">
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
             </div>
         </div>
     </div>

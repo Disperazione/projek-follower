@@ -15,6 +15,7 @@ class CreateOrderMakanansTable extends Migration
     {
         Schema::create('order_makanans', function (Blueprint $table) {
             $table->id();
+            $table->string('kode_transaksi');
             $table->string('nama');
             $table->string('customer');
             $table->string('tlp');
